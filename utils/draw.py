@@ -56,6 +56,10 @@ def draw_grid (Window, X, Y, W, Rows, Columns) :
         pygame.display.update()
     return grid
 
+def draw_cell(Window, X, Y, Color) :
+    pygame.draw.rect(Window, Color, (X + 1, Y + 1, 18, 18), 0)
+    pygame.display.update()
+
 def draw_current_cell(Window, X, Y) :
     pygame.draw.rect(Window, COLOR_GREEN, (X + 1, Y + 1, 18, 18), 0)
     pygame.display.update()
