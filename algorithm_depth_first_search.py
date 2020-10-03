@@ -14,7 +14,7 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
     visited.append((X, Y))
 
     while(len(stack) > 0) :
-        # Check which neighbours are available
+        # Check which neighbors are available
         available_cells = []
         if( ((X, Y - Size) not in visited) and ((X, Y - Size) in Grid) ) :
             available_cells.append('top')
@@ -24,7 +24,7 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
             available_cells.append('bottom')
         if( ((X + Size, Y) not in visited) and ((X + Size, Y) in Grid) ) :
             available_cells.append('right')
-        # Select a random neighbour
+        # Select a random neighbor
         if(len(available_cells) != 0) :
             next_cell = random.choice(available_cells)
             if(next_cell == 'top') :
@@ -51,6 +51,7 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
             X, Y = stack.pop()
             Draw.draw_current_cell(Window, X, Y)
             Draw.draw_backtracking_cell(Window, X, Y)
+    # Draw the start and the end
     Draw.draw_cell(Window, Size, Size, Draw.COLOR_RED)
     Draw.draw_cell(Window, Grid_width * Size, Grid_height * Size, Draw.COLOR_RED)
 
