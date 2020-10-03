@@ -9,7 +9,7 @@ stack   = []
 visited = []
 
 def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
-    Draw.draw_current_cell(Window, X, Y)
+    Draw.draw_cell(Window, X, Y, Draw.COLOR_GREEN)
     stack.append((X, Y))
     visited.append((X, Y))
 
@@ -24,33 +24,34 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
             available_cells.append('bottom')
         if( ((X + Size, Y) not in visited) and ((X + Size, Y) in Grid) ) :
             available_cells.append('right')
+            
         # Select a random neighbor
         if(len(available_cells) != 0) :
             next_cell = random.choice(available_cells)
             if(next_cell == 'top') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'up')
+                Draw.draw_next_cell(Window, X, Y, Size, 'up', Draw.COLOR_BLUE)
                 visited.append((X, Y - Size))
                 stack.append((X, Y - Size))
                 Y = Y - Size
             elif(next_cell == 'left') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'left')
+                Draw.draw_next_cell(Window, X, Y, Size, 'left', Draw.COLOR_BLUE)
                 visited.append((X - Size, Y))
                 stack.append((X - Size, Y))
                 X = X - Size
             elif(next_cell == 'bottom') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'down')
+                Draw.draw_next_cell(Window, X, Y, Size, 'down', Draw.COLOR_BLUE)
                 visited.append((X, Y + Size))
                 stack.append((X, Y + Size))
                 Y = Y + Size
             elif(next_cell == 'right') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'right')
+                Draw.draw_next_cell(Window, X, Y, Size, 'right', Draw.COLOR_BLUE)
                 visited.append((X + Size, Y))
                 stack.append((X + Size, Y))
                 X = X + Size
         else :
             X, Y = stack.pop()
-            Draw.draw_current_cell(Window, X, Y)
-            Draw.draw_backtracking_cell(Window, X, Y)
+            Draw.draw_cell(Window, X, Y, Draw.COLOR_BLUE)
+
     # Draw the start and the end
     Draw.draw_cell(Window, Size, Size, Draw.COLOR_RED)
     Draw.draw_cell(Window, Grid_width * Size, Grid_height * Size, Draw.COLOR_RED)

@@ -49,16 +49,16 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
         if(len(neighbors) > 0) :
             neighbor = random.choice(neighbors)
             if(neighbor == 'top') :
-                Draw.draw_next_cell(Window, x, y, Size, 'up')
+                Draw.draw_next_cell(Window, x, y, Size, 'up', Draw.COLOR_BLUE)
                 maze.append((x, y))
             elif(neighbor == 'left') :
-                Draw.draw_next_cell(Window, x, y, Size, 'left')
+                Draw.draw_next_cell(Window, x, y, Size, 'left', Draw.COLOR_BLUE)
                 maze.append((x, y))
             elif(neighbor == 'bottom') :
-                Draw.draw_next_cell(Window, x, y, Size, 'down')
+                Draw.draw_next_cell(Window, x, y, Size, 'down', Draw.COLOR_BLUE)
                 maze.append((x, y))
             elif(neighbor == 'right') :
-                Draw.draw_next_cell(Window, x, y, Size, 'right')
+                Draw.draw_next_cell(Window, x, y, Size, 'right', Draw.COLOR_BLUE)
                 maze.append((x, y))
 
         # Search and add the possible frontiers.

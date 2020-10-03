@@ -60,25 +60,17 @@ def draw_cell(Window, X, Y, Color) :
     pygame.draw.rect(Window, Color, (X + 1, Y + 1, 18, 18), 0)
     pygame.display.update()
 
-def draw_current_cell(Window, X, Y) :
-    pygame.draw.rect(Window, COLOR_GREEN, (X + 1, Y + 1, 18, 18), 0)
-    pygame.display.update()
-
-def draw_next_cell(Window, X, Y, W, Direction) :
+def draw_next_cell(Window, X, Y, W, Direction, Color) :
     # Go to the top cell
     if(Direction == 'up') :
-        pygame.draw.rect(Window, COLOR_BLUE, (X + 1, Y - W + 1, 19, 39), 0)
+        pygame.draw.rect(Window, Color, (X + 1, Y - W + 1, 19, 39), 0)
     # Go to the left cell
     elif(Direction == 'left') :
-        pygame.draw.rect(Window, COLOR_BLUE, (X - W + 1, Y + 1, 39, 19), 0)
+        pygame.draw.rect(Window, Color, (X - W + 1, Y + 1, 39, 19), 0)
     # Go to the bottom cell
     elif(Direction == 'down') :
-        pygame.draw.rect(Window, COLOR_BLUE, (X + 1, Y + 1, 19, 39), 0)
+        pygame.draw.rect(Window, Color, (X + 1, Y + 1, 19, 39), 0)
     # Go to the right cell
     elif(Direction == 'right') :
-        pygame.draw.rect(Window, COLOR_BLUE, (X + 1, Y + 1, 39, 19), 0)
-    pygame.display.update()
-
-def draw_backtracking_cell(Window, X, Y):
-    pygame.draw.rect(Window, COLOR_BLUE, (X + 1, Y + 1, 18, 18), 0)
+        pygame.draw.rect(Window, Color, (X + 1, Y + 1, 39, 19), 0)
     pygame.display.update()
