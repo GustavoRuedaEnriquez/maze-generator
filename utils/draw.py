@@ -15,11 +15,12 @@ SCREEN_H = 650
 FPS = 30
 
 # COLORS DEFINITIONS
-COLOR_WHITE = (255, 255, 255)
-COLOR_BLACK = (0, 0, 0)
-COLOR_RED   = (255, 0, 0)
-COLOR_GREEN = (0, 255, 0)
-COLOR_BLUE  = (0, 0, 255)
+COLOR_WHITE  = (255, 255, 255)
+COLOR_BLACK  = (0, 0, 0)
+COLOR_RED    = (255, 0, 0)
+COLOR_GREEN  = (0, 255, 0)
+COLOR_BLUE   = (0, 0, 255)
+COLOR_VIOLET = (153, 51, 153)
 
 def init_screen(Title) :
     pygame.init()
@@ -57,7 +58,7 @@ def draw_grid (Window, X, Y, W, Rows, Columns) :
     return grid
 
 def draw_cell(Window, X, Y, Color) :
-    pygame.draw.rect(Window, Color, (X + 1, Y + 1, 18, 18), 0)
+    pygame.draw.rect(Window, Color, (X + 1, Y + 1, 19, 19), 0)
     pygame.display.update()
 
 def draw_next_cell(Window, X, Y, W, Direction, Color) :
@@ -74,3 +75,21 @@ def draw_next_cell(Window, X, Y, W, Direction, Color) :
     elif(Direction == 'right') :
         pygame.draw.rect(Window, Color, (X + 1, Y + 1, 39, 19), 0)
     pygame.display.update()
+
+def draw_next_cell_line(Window, X, Y, W, Direction, Color) :
+    # Go to the top cell
+    if(Direction == 'up') :
+        pygame.draw.rect(Window, Color, (X + 1, Y - W + 1, 19, 20), 0)
+    # Go to the left cell
+    elif(Direction == 'left') :
+        pygame.draw.rect(Window, Color, (X - W + 1, Y + 1, 20, 19), 0)
+    # Go to the bottom cell
+    elif(Direction == 'down') :
+        pygame.draw.rect(Window, Color, (X + 1, Y + 1, 19, 20), 0)
+    # Go to the right cell
+    elif(Direction == 'right') :
+        pygame.draw.rect(Window, Color, (X + 1, Y + 1, 20, 19), 0)
+    pygame.display.update()
+
+def draw_cells(Window, Start_x, Start_y, End_x, End_y, Color) :
+    pygame.draw.rect(Window, Color, (Start_x + 1, Start_y + 1, End_x - Start_x - 1, End_y - Start_y - 1), 0)
