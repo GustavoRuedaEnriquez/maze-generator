@@ -3,8 +3,9 @@
 import sys
 import algorithm_depth_first_search as Dfs
 import algorithm_prim as Prim
+import algorithm_kruskal as Kruskal
 
-algorithms = ['dfs', 'prim']
+algorithms = ['dfs', 'prim', 'kruskal']
 
 def print_error(Message) :
     print()
@@ -46,3 +47,5 @@ if( sys.argv[3] == 'dfs' ) :
     Dfs.generate_maze(GRID_W, GRID_H)
 elif( sys.argv[3] == 'prim' ) :
     Prim.generate_maze(GRID_W, GRID_H)
+elif( sys.argv[3] == 'kruskal' ) :
+    Kruskal.generate_maze(GRID_W, GRID_H)
