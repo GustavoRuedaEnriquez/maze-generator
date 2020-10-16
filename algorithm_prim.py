@@ -1,3 +1,13 @@
+"""
+--------------------------------
+| Maze-Generator               |
+| Prim's algorithm             |
+-------------------------------
+Author: Gustavo Adolfo Rueda Enríquez
+Python 3.8
+
+"""
+
 import random
 import utils.draw as Draw
 
@@ -19,14 +29,16 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
     # Search for the possible frontiers.
     if( ((x, y - Size) not in frontiers) and ((x, y - Size) in Grid) ) :
         frontiers.append((x, y - Size))
+        Draw.draw_cell(Window, x, y - Size, Draw.COLOR_GREEN)
     if( ((x - Size, y) not in frontiers) and ((x - Size, y) in Grid) ) :
         frontiers.append((x - Size, y))
+        Draw.draw_cell(Window, x - Size, y, Draw.COLOR_GREEN)
     if( ((x, y + Size) not in frontiers) and ((x, y + Size) in Grid) ) :
         frontiers.append((x, y + Size))
+        Draw.draw_cell(Window, x, y + Size, Draw.COLOR_GREEN)
     if( ((x + Size, y) not in frontiers) and ((x + Size, y) in Grid) ) :
         frontiers.append((x + Size, y))
-    for f in frontiers :
-        Draw.draw_cell(Window,f[0], f[1], Draw.COLOR_GREEN)
+        Draw.draw_cell(Window, x + Size, y, Draw.COLOR_GREEN)
 
     while(len(frontiers) > 0) :
         # Obtain a random frontier cell
@@ -64,14 +76,16 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
         # Search and add the possible frontiers.
             if( ((x, y - Size) not in frontiers) and ((x, y - Size) in Grid) and ((x, y - Size) not in maze) ) :
                 frontiers.append((x, y - Size))
+                Draw.draw_cell(Window, x, y - Size, Draw.COLOR_GREEN)
             if( ((x - Size, y) not in frontiers) and ((x - Size, y) in Grid) and ((x - Size, y) not in maze) ) :
                 frontiers.append((x - Size, y))
+                Draw.draw_cell(Window, x - Size, y, Draw.COLOR_GREEN)
             if( ((x, y + Size) not in frontiers) and ((x, y + Size) in Grid) and ((x, y + Size) not in maze) ) :
                 frontiers.append((x, y + Size))
+                Draw.draw_cell(Window, x, y + Size, Draw.COLOR_GREEN)
             if( ((x + Size, y) not in frontiers) and ((x + Size, y) in Grid) and ((x + Size, y) not in maze) ) :
                 frontiers.append((x + Size, y))
-            for f in frontiers :
-                Draw.draw_cell(Window,f[0], f[1], Draw.COLOR_GREEN)
+                Draw.draw_cell(Window, x + Size, y, Draw.COLOR_GREEN)
 
     # Draw the start and the end      
     Draw.draw_cell(Window, Size, Size, Draw.COLOR_RED)

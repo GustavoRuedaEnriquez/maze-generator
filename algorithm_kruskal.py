@@ -1,3 +1,13 @@
+"""
+--------------------------------
+| Maze-Generator               |
+| Kruskal's algorithm          |
+-------------------------------
+Author: Gustavo Adolfo Rueda Enríquez
+Python 3.8
+
+"""
+
 import time
 import copy
 import random
@@ -103,7 +113,6 @@ def trace_maze_kruskal(Window, Grid, Grid_width, Grid_height, Size) :
     total_sets = len(sets)
 
     while(len(sets) > 1) :
-        time.sleep(0.005)
         x, y = edges[index]
         neighbor = obtain_unconnected_neighbor(Grid, sets, x, y)
         if( neighbor != None ) :

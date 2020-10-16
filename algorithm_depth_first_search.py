@@ -1,4 +1,13 @@
-import time
+"""
+--------------------------------
+| Maze-Generator               |
+| Depth first search algorithm |
+-------------------------------
+Author: Gustavo Adolfo Rueda Enríquez
+Python 3.8
+
+"""
+
 import random
 import utils.draw as Draw
 

@@ -1,5 +1,15 @@
 # pylint: disable=no-member
 
+"""
+--------------------------------
+| Maze-Generator               |
+| Main program                 |
+-------------------------------
+Author: Gustavo Adolfo Rueda Enríquez
+Python 3.8
+
+"""
+
 import sys
 import algorithm_depth_first_search as Dfs
 import algorithm_prim as Prim
