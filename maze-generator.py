@@ -16,7 +16,7 @@ import algorithm_prim as Prim
 import algorithm_kruskal as Kruskal
 import algorithm_recursive_division as RecursiveDivision
 
-algorithms = ['dfs', 'prim', 'kruskal', 'recursive']
+algorithms = ['dfs', 'prim', 'kruskal', 'recursive-div']
 
 def print_error(Message) :
     print()
@@ -27,10 +27,10 @@ def print_error(Message) :
     print('\tWIDTH  - The number of cells alongside the width.  The valid values are [5 - 30]')
     print('\tHEIGHT - The number of cells alongside the height. The valid values are [5 - 30]')
     print('\tALGORITHM - The desired maze generation algorithm to use. The valid options are:')
-    print('\t\tdfs  - Depth First Search algorithm.')
-    print('\t\tprim - Prim\'s algorithm.')
-    print('\t\tkruskal - Kruskal\'s algorithm.')
-    print('\t\trecursive - Recursive division algorithm.')
+    print('\t\tdfs.............Depth First Search algorithm.')
+    print('\t\tprim............Prim\'s algorithm.')
+    print('\t\tkruskal.........Kruskal\'s algorithm.')
+    print('\t\trecursive-div...Recursive division algorithm.')
     print()
     print('Example:')
     print('\tpython maze-generator.py 25 20 dfs')
@@ -62,5 +62,5 @@ elif( sys.argv[3] == 'prim' ) :
     Prim.generate_maze(GRID_W, GRID_H)
 elif( sys.argv[3] == 'kruskal' ) :
     Kruskal.generate_maze(GRID_W, GRID_H)
-elif( sys.argv[3] == 'recursive' ) :
+elif( sys.argv[3] == 'recursive-div' ) :
     RecursiveDivision.generate_maze(GRID_W, GRID_H)

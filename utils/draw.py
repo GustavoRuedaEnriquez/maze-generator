@@ -49,23 +49,23 @@ def run_game_loop(Clock) :
                 pygame.quit()
                 exit()
 
-def draw_grid (Window, W, Rows, Columns) :
+def draw_grid (Window, Rows, Columns) :
     grid = []
     Y = ORIGIN[1]
     for i in range(0, Columns):
-        X = W
-        Y = Y + W
+        X = CELL_W
+        Y = Y + CELL_W
         for j in range(0, Rows):
             # Top cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X, Y], [X + W, Y])
+            pygame.draw.line(Window, COLOR_WHITE, [X, Y], [X + CELL_W, Y])
             # Left cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X, Y], [X, Y + W])
+            pygame.draw.line(Window, COLOR_WHITE, [X, Y], [X, Y + CELL_W])
             # Bottom cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X, Y + W], [X + W, Y + W])
+            pygame.draw.line(Window, COLOR_WHITE, [X, Y + CELL_W], [X + CELL_W, Y + CELL_W])
             # Right cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X + W, Y], [X + W, Y + W])
+            pygame.draw.line(Window, COLOR_WHITE, [X + CELL_W, Y], [X + CELL_W, Y + CELL_W])
             grid.append((X, Y))
-            X = X + W
+            X = X + CELL_W
         pygame.display.update()
     return grid
 
@@ -87,6 +87,7 @@ def draw_grid_outer_line (Window, Rows, Columns) :
     return grid
 
 def draw_bisect_grid (Window, Sx, Sy, Ex, Ey, Direction, Bx, By) :
+    # Parse the grid coordinates to the display coordinates.
     parsed_sx = CELL_W * (Sx + 1)
     parsed_sy = CELL_W * (Sy + 1)
     parsed_ex = CELL_W * (Ex + 1)
@@ -94,14 +95,13 @@ def draw_bisect_grid (Window, Sx, Sy, Ex, Ey, Direction, Bx, By) :
     parsed_bx = CELL_W * (Bx + 1)
     parsed_by = CELL_W * (By + 1)
     if Direction == HORIZONTAL :
-        #print('Horizontal, (', Sx,',', By,') a (',Ex,',',By,')')
         pygame.draw.line(Window, COLOR_WHITE, [parsed_sx, parsed_by], [parsed_ex, parsed_by])
     else :
-        #print('Vertical, (', Bx,',', Sy,') a (',Bx,',',Ey,')')
         pygame.draw.line(Window, COLOR_WHITE, [parsed_bx, parsed_sy], [parsed_bx, parsed_ey])
     pygame.display.update()
 
 def draw_gap_grid (Window, Sx, Sy, Ex, Ey, Direction, Bx, By) :
+    # Parse the grid coordinates to the display coordinates.
     parsed_sx = CELL_W * (Sx + 1)
     parsed_sy = CELL_W * (Sy + 1)
     parsed_ex = CELL_W * (Ex + 1)
@@ -120,13 +120,13 @@ def draw_cell(Window, X, Y, Color) :
     pygame.draw.rect(Window, Color, (X + 1, Y + 1, 19, 19), 0)
     pygame.display.update()
 
-def draw_next_cell(Window, X, Y, W, Direction, Color) :
+def draw_next_cell(Window, X, Y, Direction, Color) :
     # Go to the top cell
     if(Direction == 'up') :
-        pygame.draw.rect(Window, Color, (X + 1, Y - W + 1, 19, 39), 0)
+        pygame.draw.rect(Window, Color, (X + 1, Y - CELL_W + 1, 19, 39), 0)
     # Go to the left cell
     elif(Direction == 'left') :
-        pygame.draw.rect(Window, Color, (X - W + 1, Y + 1, 39, 19), 0)
+        pygame.draw.rect(Window, Color, (X - CELL_W + 1, Y + 1, 39, 19), 0)
     # Go to the bottom cell
     elif(Direction == 'down') :
         pygame.draw.rect(Window, Color, (X + 1, Y + 1, 19, 39), 0)
@@ -135,13 +135,13 @@ def draw_next_cell(Window, X, Y, W, Direction, Color) :
         pygame.draw.rect(Window, Color, (X + 1, Y + 1, 39, 19), 0)
     pygame.display.update()
 
-def draw_next_cell_line(Window, X, Y, W, Direction, Color) :
+def draw_next_cell_line(Window, X, Y, Direction, Color) :
     # Go to the top cell
     if(Direction == 'up') :
-        pygame.draw.rect(Window, Color, (X + 1, Y - W + 1, 19, 20), 0)
+        pygame.draw.rect(Window, Color, (X + 1, Y - CELL_W + 1, 19, 20), 0)
     # Go to the left cell
     elif(Direction == 'left') :
-        pygame.draw.rect(Window, Color, (X - W + 1, Y + 1, 20, 19), 0)
+        pygame.draw.rect(Window, Color, (X - CELL_W + 1, Y + 1, 20, 19), 0)
     # Go to the bottom cell
     elif(Direction == 'down') :
         pygame.draw.rect(Window, Color, (X + 1, Y + 1, 19, 20), 0)
@@ -152,3 +152,6 @@ def draw_next_cell_line(Window, X, Y, W, Direction, Color) :
 
 def draw_cells(Window, Start_x, Start_y, End_x, End_y, Color) :
     pygame.draw.rect(Window, Color, (Start_x + 1, Start_y + 1, End_x - Start_x - 1, End_y - Start_y - 1), 0)
+
+def getCellWidth() :
+    return CELL_W

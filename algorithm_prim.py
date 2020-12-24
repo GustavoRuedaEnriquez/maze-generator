@@ -12,7 +12,7 @@ import random
 import utils.draw as Draw
 
 #CELLS DIMENSION (WIDTH AND HEIGHT)
-CELL_D = 20
+CELL_D = Draw.getCellWidth()
 
 # CELLS ARRAY
 maze = []
@@ -61,16 +61,16 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
         if(len(neighbors) > 0) :
             neighbor = random.choice(neighbors)
             if(neighbor == 'top') :
-                Draw.draw_next_cell(Window, x, y, Size, 'up', Draw.COLOR_BLUE)
+                Draw.draw_next_cell(Window, x, y, 'up', Draw.COLOR_BLUE)
                 maze.append((x, y))
             elif(neighbor == 'left') :
-                Draw.draw_next_cell(Window, x, y, Size, 'left', Draw.COLOR_BLUE)
+                Draw.draw_next_cell(Window, x, y, 'left', Draw.COLOR_BLUE)
                 maze.append((x, y))
             elif(neighbor == 'bottom') :
-                Draw.draw_next_cell(Window, x, y, Size, 'down', Draw.COLOR_BLUE)
+                Draw.draw_next_cell(Window, x, y, 'down', Draw.COLOR_BLUE)
                 maze.append((x, y))
             elif(neighbor == 'right') :
-                Draw.draw_next_cell(Window, x, y, Size, 'right', Draw.COLOR_BLUE)
+                Draw.draw_next_cell(Window, x, y, 'right', Draw.COLOR_BLUE)
                 maze.append((x, y))
 
         # Search and add the possible frontiers.
@@ -93,6 +93,6 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
             
 def generate_maze(Width, Height) :
     window, clock = Draw.init_screen('Maze generated with Prim\'s algorithm.')
-    grid = Draw.draw_grid (window, CELL_D, Width, Height)
+    grid = Draw.draw_grid (window, Width, Height)
     trace_maze_prim(window, grid, Width, Height, CELL_D)
     Draw.run_game_loop(clock)

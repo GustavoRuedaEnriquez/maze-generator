@@ -7,28 +7,19 @@ Author: Gustavo Adolfo Rueda Enríquez
 Python 3.8
 
 """
-import time
+
 import random
 import utils.draw as Draw
 
 #BISECT DIRECTIONS
 VERTICAL, HORIZONTAL = 0,1
 
-# sx -> starting x
-# sy -> starting y
-# ex -> ending x
-# ey -> ending y 
 def bisect_maze(Window, sx, sy, ex, ey) :
-    
-    #print('sx',sx,'sy',sy,'ex',ex,'ey',ey)
-
     dx = ex - sx
     dy = ey - sy
-
     # Stop condition
     if dx <= 1 or dy <= 1:
         return
-
     # Choose wall direction
     if dy > dx:
         direction = HORIZONTAL

@@ -1,10 +1,11 @@
 # Maze Generator
 Small tool that generates mazes from different sizes, starting at 5x5 grid to 30x30 grid, using different algorithms. Coded in Python 🐍.
 
-Currently, the tool only supports 3 algorithms (hoping to implement more!) :
+Currently, the tool only supports 4 algorithms (hoping to implement more!) :
 * [First Depth Search](https://en.wikipedia.org/wiki/Depth-first_search).
 * [Kruskal's algorithm](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm).
 * [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
+* [Recursive Division](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method)
 
 ## Installing the project
 Before installing the project, make sure you have [Python 3.8.6](https://www.python.org/downloads/release/python-386/) or later installed on your computer. After this, it is required to download the repository and to install [pygame](https://www.pygame.org/news), this library is required in order to make the project work.

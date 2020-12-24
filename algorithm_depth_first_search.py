@@ -11,8 +11,8 @@ Python 3.8
 import random
 import utils.draw as Draw
 
-#CELLS DIMENSION (WIDTH AND HEIGHT)
-CELL_D = 20
+#CELLS DIMENSION
+CELL_D = Draw.getCellWidth()
 
 # CELLS ARRAY
 stack   = []
@@ -54,22 +54,22 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
         if(len(available_cells) != 0) :
             next_cell = random.choice(available_cells)
             if(next_cell == 'top') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'up', Draw.COLOR_VIOLET)
+                Draw.draw_next_cell(Window, X, Y, 'up', Draw.COLOR_VIOLET)
                 visited.append((X, Y - Size))
                 stack.append((X, Y - Size))
                 Y = Y - Size
             elif(next_cell == 'left') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'left', Draw.COLOR_VIOLET)
+                Draw.draw_next_cell(Window, X, Y, 'left', Draw.COLOR_VIOLET)
                 visited.append((X - Size, Y))
                 stack.append((X - Size, Y))
                 X = X - Size
             elif(next_cell == 'bottom') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'down', Draw.COLOR_VIOLET)
+                Draw.draw_next_cell(Window, X, Y, 'down', Draw.COLOR_VIOLET)
                 visited.append((X, Y + Size))
                 stack.append((X, Y + Size))
                 Y = Y + Size
             elif(next_cell == 'right') :
-                Draw.draw_next_cell(Window, X, Y, Size, 'right', Draw.COLOR_VIOLET)
+                Draw.draw_next_cell(Window, X, Y, 'right', Draw.COLOR_VIOLET)
                 visited.append((X + Size, Y))
                 stack.append((X + Size, Y))
                 X = X + Size
@@ -87,23 +87,23 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
             if(has_neighbors(Grid, stack[-1]) != True) :
                 X, Y = stack.pop()
                 if(old_x > X) :
-                    Draw.draw_next_cell(Window, X, Y, Size, 'right', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell(Window, X, Y, 'right', Draw.COLOR_BLUE)
                 elif(old_x < X) :
-                    Draw.draw_next_cell(Window, X, Y, Size, 'left', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell(Window, X, Y, 'left', Draw.COLOR_BLUE)
                 elif(old_y > Y) :
-                    Draw.draw_next_cell(Window, X, Y, Size, 'down', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell(Window, X, Y, 'down', Draw.COLOR_BLUE)
                 elif(old_y < Y) :
-                    Draw.draw_next_cell(Window, X, Y, Size, 'up', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell(Window, X, Y, 'up', Draw.COLOR_BLUE)
             else :
                 X, Y = stack[-1][0], stack[-1][1]
                 if(old_x > X) :
-                    Draw.draw_next_cell_line(Window, X, Y, Size, 'right', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell_line(Window, X, Y, 'right', Draw.COLOR_BLUE)
                 elif(old_x < X) :
-                    Draw.draw_next_cell_line(Window, X, Y, Size, 'left', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell_line(Window, X, Y, 'left', Draw.COLOR_BLUE)
                 elif(old_y > Y) :
-                    Draw.draw_next_cell_line(Window, X, Y, Size, 'down', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell_line(Window, X, Y, 'down', Draw.COLOR_BLUE)
                 elif(old_y < Y) :
-                    Draw.draw_next_cell_line(Window, X, Y, Size, 'up', Draw.COLOR_BLUE)
+                    Draw.draw_next_cell_line(Window, X, Y, 'up', Draw.COLOR_BLUE)
                 
     # Draw the start and the end
     Draw.draw_cell(Window, Size, Size, Draw.COLOR_RED)
@@ -111,6 +111,6 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
 
 def generate_maze(Width, Height) :
     window, clock = Draw.init_screen('Maze generated with depth first search algorithm.')
-    grid = Draw.draw_grid (window, CELL_D, Width, Height)
+    grid = Draw.draw_grid (window, Width, Height)
     trace_maze_dfs(window, grid, Width, Height, CELL_D, CELL_D, CELL_D)
     Draw.run_game_loop(clock)
