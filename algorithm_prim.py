@@ -93,6 +93,6 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
             
 def generate_maze(Width, Height) :
     window, clock = Draw.init_screen('Maze generated with Prim\'s algorithm.')
-    grid = Draw.draw_grid (window, 0, 0, CELL_D, Width, Height)
+    grid = Draw.draw_grid (window, CELL_D, Width, Height)
     trace_maze_prim(window, grid, Width, Height, CELL_D)
     Draw.run_game_loop(clock)
