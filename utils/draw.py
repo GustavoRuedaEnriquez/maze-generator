@@ -1,6 +1,16 @@
 # pylint: disable=no-member
 # pylint: disable=unused-variable
 
+"""
+------------------------
+| Maze-Generator       |
+| Drawing utilities    |
+------------------------
+Author: Gustavo Adolfo Rueda Enríquez
+Python 3.8
+
+"""
+
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 os.environ['SDL_VIDEO_CENTERED'] = "True"
@@ -111,14 +121,21 @@ def draw_gap_grid (Window, Sx, Sy, Ex, Ey, Direction, Bx, By) :
     random_x = random.randrange(parsed_sx, parsed_ex, CELL_W)
     random_y = random.randrange(parsed_sy, parsed_ey, CELL_W)
     if Direction == HORIZONTAL :
-        pygame.draw.line(Window, COLOR_BLACK, [random_x + 1, parsed_by], [random_x + CELL_W - 1, parsed_by])
+        pygame.draw.line(Window, COLOR_BLUE, [random_x + 1, parsed_by], [random_x + CELL_W - 1, parsed_by])
     else :
-        pygame.draw.line(Window, COLOR_BLACK, [parsed_bx, random_y + 1], [parsed_bx, random_y + CELL_W - 1])
+        pygame.draw.line(Window, COLOR_BLUE, [parsed_bx, random_y + 1], [parsed_bx, random_y + CELL_W - 1])
     pygame.display.update()
+
+def draw_fill_grid_color(Window, Color, Width, Height) :
+    pygame.draw.rect(Window, Color, (CELL_W + 1, CELL_W + 1, (CELL_W * Width) - 1, (CELL_W * Height) - 1), 0)
 
 def draw_cell(Window, X, Y, Color) :
     pygame.draw.rect(Window, Color, (X + 1, Y + 1, 19, 19), 0)
     pygame.display.update()
+
+def draw_fill_start_and_end_cells(Window, Width, Height) :
+    draw_cell(Window, CELL_W, CELL_W, COLOR_RED)
+    draw_cell(Window, CELL_W * Width, CELL_W * Height, COLOR_RED)
 
 def draw_next_cell(Window, X, Y, Direction, Color) :
     # Go to the top cell

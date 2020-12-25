@@ -105,9 +105,7 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
                 elif(old_y < Y) :
                     Draw.draw_next_cell_line(Window, X, Y, 'up', Draw.COLOR_BLUE)
                 
-    # Draw the start and the end
-    Draw.draw_cell(Window, Size, Size, Draw.COLOR_RED)
-    Draw.draw_cell(Window, Grid_width * Size, Grid_height * Size, Draw.COLOR_RED)
+    Draw.draw_fill_start_and_end_cells(Window, Grid_width, Grid_height)
 
 def generate_maze(Width, Height) :
     window, clock = Draw.init_screen('Maze generated with depth first search algorithm.')

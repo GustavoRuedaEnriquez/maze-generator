@@ -87,9 +87,7 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
                 frontiers.append((x + Size, y))
                 Draw.draw_cell(Window, x + Size, y, Draw.COLOR_GREEN)
 
-    # Draw the start and the end      
-    Draw.draw_cell(Window, Size, Size, Draw.COLOR_RED)
-    Draw.draw_cell(Window, Grid_width * Size, Grid_height * Size, Draw.COLOR_RED)
+    Draw.draw_fill_start_and_end_cells(Window, Grid_width, Grid_height)
             
 def generate_maze(Width, Height) :
     window, clock = Draw.init_screen('Maze generated with Prim\'s algorithm.')
