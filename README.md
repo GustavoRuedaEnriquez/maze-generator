@@ -7,7 +7,7 @@ Currently, the tool only supports 4 algorithms (hoping to implement more!) :
 * [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
 * [Recursive Division](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method)
 
-Big shout out to Jamis Buck, your articles in [The Bucklog](http://weblog.jamisbuck.org/) really helped me to achieve this. Thanks a lot!
+Big shout out to Jamis Buck, your articles in [The Buckblog](http://weblog.jamisbuck.org/) really helped me to achieve this. Thanks a lot!
 
 ## Installing the project
 Before installing the project, make sure you have [Python 3.8.6](https://www.python.org/downloads/release/python-386/) or later installed on your computer. After this, it is required to download the repository and to install [pygame](https://www.pygame.org/news), this library is required in order to make the project work.
