@@ -41,6 +41,3 @@ Where:
 <div align='center'>
 <img src="./gifs/usage.gif" alt="Demo"/>
 </div>
-
-## Contributors
-If you want to contribute, please fork this [repository](https://github.com/GustavoRuedaEnriquez/maze-generator) and if you find any bugs, issues or simply have a suggestion; please post it and create your pull requests. Thanks for looking the project! 😃
