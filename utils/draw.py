@@ -15,7 +15,6 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 os.environ['SDL_VIDEO_CENTERED'] = "True"
 
-import time
 import random
 import pygame
 
