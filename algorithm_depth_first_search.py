@@ -7,7 +7,7 @@ Author: Gustavo Adolfo Rueda Enríquez
 Python 3.8
 
 """
-
+import time
 import random
 import utils.draw as Draw
 
@@ -47,6 +47,9 @@ def trace_maze_dfs(Window, Grid, Grid_width, Grid_height, X, Y, Size) :
     visited.append((X, Y))
 
     while(len(stack) > 0) :
+        # Sleep for a little bit
+        time.sleep(0.01)
+
         # Check which neighbors are available.
         available_cells = get_neighbors(Grid, (X, Y))
             

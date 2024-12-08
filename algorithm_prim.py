@@ -7,7 +7,7 @@ Author: Gustavo Adolfo Rueda Enríquez
 Python 3.8
 
 """
-
+import time
 import random
 import utils.draw as Draw
 
@@ -41,6 +41,9 @@ def trace_maze_prim(Window, Grid, Grid_width, Grid_height, Size) :
         Draw.draw_cell(Window, x + Size, y, Draw.COLOR_GREEN)
 
     while(len(frontiers) > 0) :
+        # Sleep for a little bit
+        time.sleep(0.01)
+
         # Obtain a random frontier cell
         frontier = frontiers.pop(random.randrange(len(frontiers)))
         x = frontier[0]

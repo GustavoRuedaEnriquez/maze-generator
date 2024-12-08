@@ -8,6 +8,7 @@ Python 3.8
 
 """
 
+import time
 import copy
 import random
 import utils.draw as Draw
@@ -112,6 +113,9 @@ def trace_maze_kruskal(Window, Grid, Grid_width, Grid_height, Size) :
     total_sets = len(sets)
 
     while(len(sets) > 1) :
+        # Sleep for a little bit
+        time.sleep(0.01)
+        
         x, y = edges[index]
         neighbor = obtain_unconnected_neighbor(Grid, sets, x, y)
         if( neighbor != None ) :

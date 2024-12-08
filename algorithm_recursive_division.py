@@ -7,7 +7,7 @@ Author: Gustavo Adolfo Rueda Enríquez
 Python 3.8
 
 """
-
+import time
 import random
 import utils.draw as Draw
 
@@ -32,6 +32,10 @@ def bisect_maze(Window, sx, sy, ex, ey) :
         py = random.randrange(sy, ey)
         if(px > sx and px < ex and py > sy and py < ey ) :
             break
+
+    # Sleep for a little bit
+    time.sleep(0.01)
+
     # Draw line
     Draw.draw_bisect_grid(Window, sx , sy, ex, ey, direction, px, py)
     # Draw hallway
