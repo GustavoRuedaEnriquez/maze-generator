@@ -23,7 +23,9 @@ class Maze:
 
   def draw_dfs_algorithm(self):
     window, clock = Draw.init_screen('Maze generated with DFS algorithm')
-    Dfs.generate_maze(window, clock, self.matrix, self.width, self.height)
+    Dfs.generate_maze(window, self.matrix, self.width, self.height)
+    print(self)
+    Draw.run_game_loop(clock)
 
 
   def create_blank_maze(self, _width, _height):
@@ -46,7 +48,11 @@ class Maze:
         slot_value = j % 2
         maze_row.append(slot_value)
       maze_matrix.append(maze_row)
-      maze_matrix.append(maze_wall_row)
+
+      maze_row = list()
+      for j in range(0, matrix_cols):
+        maze_row.append(0)
+      maze_matrix.append(maze_row)
 
     return maze_matrix
 
