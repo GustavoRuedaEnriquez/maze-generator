@@ -18,6 +18,12 @@ os.environ['SDL_VIDEO_CENTERED'] = "True"
 import random
 import pygame
 
+# WALL CONSTANT
+WALL_CONST = 0
+
+# SLOT CONSTANT
+SLOT_CONST = 1
+
 #X Y ORIGIN
 ORIGIN = (0, 0)
 
@@ -25,17 +31,22 @@ ORIGIN = (0, 0)
 VERTICAL, HORIZONTAL = 0,1
 
 # GUI WINDOW DIMENSIONS
-SCREEN_W = 650
-SCREEN_H = 650
+SCREEN_W = 800
+SCREEN_H = 800
 
 # CELL WIDTH (SQUARE CELLS)
-CELL_W = 20
+CELL_W = 11
 
 # FRAMES
 FPS = 30
 
+# COORDINATES OF THE FIRST SLOT
+X_0 = 2 * CELL_W
+Y_0 = 2 * CELL_W
+
 # COLORS DEFINITIONS
 COLOR_BLACK  = (0, 0, 0)
+COLOR_GRAY   = (104, 104, 104)
 COLOR_WHITE  = (255, 255, 255)
 COLOR_RED    = (255, 0, 0)
 COLOR_GREEN  = (0, 255, 0)
@@ -58,24 +69,65 @@ def run_game_loop(Clock) :
                 pygame.quit()
                 exit()
 
+def draw_maze(Window, maze_matrix):
+  x = ORIGIN[0]
+  y = ORIGIN[1]
+
+  y = 2 * CELL_W
+  for i in range(0, len(maze_matrix)):
+    x = 2 * CELL_W
+    for j in range(0, len(maze_matrix[i])):
+      cell = pygame.Rect([x, y], [CELL_W, CELL_W])
+      if maze_matrix[i][j] is WALL_CONST:
+        pygame.draw.rect(Window, COLOR_VIOLET, cell)
+      elif maze_matrix[i][j] is SLOT_CONST:
+        pygame.draw.rect(Window, COLOR_WHITE, cell)
+      x += CELL_W
+    y += CELL_W
+  pygame.display.update()
+
+
 def draw_grid (Window, Rows, Columns) :
     grid = []
-    Y = ORIGIN[1]
-    for i in range(0, Columns):
-        X = CELL_W
-        Y = Y + CELL_W
-        for j in range(0, Rows):
-            # Top cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X, Y], [X + CELL_W, Y])
-            # Left cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X, Y], [X, Y + CELL_W])
-            # Bottom cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X, Y + CELL_W], [X + CELL_W, Y + CELL_W])
-            # Right cell margin
-            pygame.draw.line(Window, COLOR_WHITE, [X + CELL_W, Y], [X + CELL_W, Y + CELL_W])
-            grid.append((X, Y))
-            X = X + CELL_W
-        pygame.display.update()
+    x = ORIGIN[0]
+    y = ORIGIN[1]
+
+    # Draw a rectangle that will act as border of the whole maze
+    x = CELL_W * 1.5
+    y = CELL_W * 1.5
+    total_width = CELL_W + (2 * Columns - 1) * CELL_W
+    total_height = CELL_W + (2 * Rows - 1) * CELL_W
+    wall = pygame.Rect([x, y], [total_width, total_height])
+    pygame.draw.rect(Window, COLOR_GRAY, wall)
+
+    for row in range(0, Rows) :
+      x = 2 * CELL_W
+      y = 2 * CELL_W if row == 0 else y + (2 * CELL_W)
+
+      for col in range (0, Columns):
+        # Draw usable slot.
+        cell = pygame.Rect([x, y], [CELL_W, CELL_W])
+        pygame.draw.rect(Window, COLOR_WHITE, cell)
+
+        # Draw wall to the right, only draw it if not on the last column.
+        wall_right = False
+        if col < Columns - 1:
+          wall = pygame.Rect([x + CELL_W, y], [CELL_W, CELL_W])
+          pygame.draw.rect(Window, COLOR_GRAY, wall)
+          wall_right = True
+
+        # Update the value of x
+        x += CELL_W
+        if wall_right :
+          x += CELL_W
+
+      x = 2 * CELL_W
+
+      # Draw a wall line at the bottom, only draw it if not on the last row
+      if row < Rows - 1:
+        wall = pygame.Rect([x, y + CELL_W], [(2 * Rows - 1) * CELL_W, CELL_W])
+        pygame.draw.rect(Window, COLOR_GRAY, wall)
+      pygame.display.update()
     return grid
 
 def draw_grid_outer_line (Window, Rows, Columns) :
@@ -85,13 +137,13 @@ def draw_grid_outer_line (Window, Rows, Columns) :
     end_x = start_x + (CELL_W * Rows)
     end_y = start_y + (CELL_W * Columns)
     # Top line margin
-    pygame.draw.line(Window, COLOR_WHITE, [start_x, start_y], [end_x, start_y])
+    pygame.draw.line(Window, COLOR_RED, [start_x, start_y], [end_x, start_y])
     # Left line margin
-    pygame.draw.line(Window, COLOR_WHITE, [start_x, start_y], [start_x, end_y])
+    pygame.draw.line(Window, COLOR_RED, [start_x, start_y], [start_x, end_y])
     # Bottom line margin
-    pygame.draw.line(Window, COLOR_WHITE, [start_x, end_y], [end_x, end_y])
+    pygame.draw.line(Window, COLOR_RED, [start_x, end_y], [end_x, end_y])
     # Right line margin
-    pygame.draw.line(Window, COLOR_WHITE, [end_x, start_y], [end_x, end_y])
+    pygame.draw.line(Window, COLOR_RED, [end_x, start_y], [end_x, end_y])
     pygame.display.update()
     return grid
 
