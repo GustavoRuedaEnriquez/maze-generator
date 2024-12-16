@@ -11,12 +11,25 @@ class Maze:
 
   def __str__(self):
     string = ''
+    string += 'W ' + str(self.width) + '\n'
+    string += 'H ' + str(self.height) + '\n'
     for i in range(0,len(self.matrix)):
       for j in range(0, len(self.matrix[i])):
         string += ' '
         string += str(self.matrix[i][j])
       string += '\n'
     return string
+  
+  def write_maze_into_file(self, filename):
+    # Custom file must contain maze's important information:
+    # - Width
+    # - Height
+    # - Matrix
+    ext = ".maze"
+    filepath = filename + ext
+    file = open(filepath, "wt")
+    file.write(str(self))
+    file.close()
 
   def draw_matrix(self):
     window, clock = Draw.init_screen("Maze")
@@ -26,15 +39,16 @@ class Maze:
   def draw_dfs_algorithm(self):
     window, clock = Draw.init_screen("Maze generated with DFS algorithm")
     Dfs.generate_maze(window, self.matrix, self.width, self.height)
-    print(self)
+    self.write_maze_into_file("maze_dfs")
     Draw.run_game_loop(clock)
 
   def draw_prim_algorithm(self):
     window, clock = Draw.init_screen("Maze generated with Prim's algorithm")
     Prim.generate_maze(window, self.matrix, self.width, self.height)
-    print(self)
+    self.write_maze_into_file("maze_prim")
     Draw.run_game_loop(clock)
-
+    print(self)
+    
   def create_blank_maze(self, _width, _height):
     matrix_cols = (2 * _width) + 1
     slot_value = 0
