@@ -15,12 +15,22 @@ import utils.draw as Draw
 maze = set()
 frontiers = set()
 
+'''
+Returns a the coordinates of a random slot of the maze
+'''
+
 def get_random_slot(width, height):
   rand_x = random.randint(1, width)
   rand_y = random.randint(1, height)
   coord_x = 2 * rand_x - 1
   coord_y = 2 * rand_y - 1
   return (coord_x, coord_y)
+
+'''
+Search for all frontiers that are next to a certain matrix cell. Returns an
+array with the coordinates of all frontiers found. Also, this function colors
+the frontier cells.
+'''
 
 def get_frontiers(window, matrix, position):
   x = position[0]
@@ -64,6 +74,12 @@ def get_frontiers(window, matrix, position):
       Draw.draw_maze_cell(window, matrix, coords, Draw.COLOR_GREEN)
 
   return available_frontiers
+
+
+'''
+Search for all cells that are part of the maze that are next to a certain slot.
+Returns an array with the coordinates of all neighbors found.
+'''
 
 def get_neighbor_maze_slots(matrix, position):
   x = position[0]
@@ -149,6 +165,11 @@ def connect_slots(window, matrix, slot_a, slot_b):
   # Draw the change we have just made on the maze matrix
   Draw.draw_connecting_cells(window, matrix, slot_a, slot_b, Draw.COLOR_CYAN)
 
+"""
+Function that executes the whole Prim's algorithm, this function will modify the
+matrix and also draw the maze.
+"""
+
 def execute_prim_algorithm(window, matrix, width, height):
   # Choose random slot on the matrix.
   start =  get_random_slot(width, height)
@@ -182,7 +203,11 @@ def execute_prim_algorithm(window, matrix, width, height):
       frontiers.update(get_frontiers(window, matrix, (x, y)))
 
   Draw.draw_start_end_cells(window, matrix, width, height)
-            
+
+"""
+Entry point of the algorithm, this is the function that maze.py calls
+"""
+
 def generate_maze(window, maze_matrix, width, height) :
     Draw.draw_maze_matrix(window, maze_matrix)
     execute_prim_algorithm(window, maze_matrix, width, height)
