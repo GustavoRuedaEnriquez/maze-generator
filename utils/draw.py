@@ -51,7 +51,8 @@ COLOR_WHITE  = (255, 255, 255)
 COLOR_RED    = (255, 0, 0)
 COLOR_GREEN  = (0, 255, 0)
 COLOR_BLUE   = (0, 0, 255)
-COLOR_VIOLET = (153, 51, 153)
+COLOR_CYAN   = (0, 183, 235)
+COLOR_VIOLET = (238, 130, 238)
 
 def init_screen(Title) :
   pygame.init()
@@ -69,9 +70,59 @@ def run_game_loop(Clock) :
         pygame.quit()
         exit()
 
-def draw_maze_cell(Window, maze_matrix, coord_x, coord_y, color):
-  x = ORIGIN[0]
-  y = ORIGIN[1]
+def draw_start_end_cells(Window, matrix, width, height):
+  start = (1,1)
+  end = ((2 * width - 1), (2 * height - 1))
+  draw_maze_cell(Window, matrix, start, COLOR_BLUE)
+  draw_maze_cell(Window, matrix, end, COLOR_BLUE)
+  pygame.display.update()
+
+def draw_connecting_cells(Window, maze_matrix, cell_a, cell_b, color):
+  # X, Y components of both slots to merge
+  a_x = cell_a[0]
+  a_y = cell_a[1]
+  b_x = cell_b[0]
+  b_y = cell_b[1]
+
+  # Delta X and Delta Y
+  dx = b_x - a_x
+  dy = b_y - a_y
+
+  # Direction of the delta
+  if dx == 0:
+    dir_x = 0
+  elif dx > 0:
+    dir_x = 1
+  else:
+    dir_x = -1
+
+  if dy == 0:
+    dir_y = 0
+  elif dy > 0:
+    dir_y = 1
+  else:
+    dir_y = -1
+
+  draw_maze_cell(Window, maze_matrix, (a_x, a_y), color)
+  cur_x = a_x + dir_x
+  cur_y = a_y + dir_y
+
+  # Draw all the cells between slot A and slot B (including slot B) with
+  # specified color
+  for i in range(0, abs(dx)):
+    draw_maze_cell(Window, maze_matrix, (cur_x, cur_y), color)
+    cur_x += dir_x
+
+  for i in range(0, abs(dy)):
+    draw_maze_cell(Window, maze_matrix, (cur_x, cur_y), color)
+    cur_y += dir_y
+
+  pygame.display.update()
+
+
+def draw_maze_cell(Window, maze_matrix, coords, color):
+  coord_x = coords[0]
+  coord_y = coords[1]
 
   y = 2 * CELL_W
   for i in range(0, len(maze_matrix)):
@@ -85,9 +136,6 @@ def draw_maze_cell(Window, maze_matrix, coord_x, coord_y, color):
   pygame.display.update()
 
 def draw_maze_matrix(Window, maze_matrix):
-  x = ORIGIN[0]
-  y = ORIGIN[1]
-
   y = 2 * CELL_W
   for i in range(0, len(maze_matrix)):
     x = 2 * CELL_W

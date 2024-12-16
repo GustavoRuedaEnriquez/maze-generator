@@ -11,6 +11,7 @@ Python 3.8
 """
 
 import sys
+import maze
 import algorithm_depth_first_search as Dfs
 import algorithm_prim as Prim
 import algorithm_kruskal as Kruskal
@@ -35,7 +36,7 @@ def print_error(Message) :
     print('Example:')
     print('\tpython maze-generator.py 25 20 dfs')
     print()
-
+'''
 if( len(sys.argv) == 1 ) :
     print_error('Invalid syntax, please type the command correctly.')
     exit()
@@ -64,3 +65,8 @@ elif( sys.argv[3] == 'kruskal' ) :
     Kruskal.generate_maze(GRID_W, GRID_H)
 elif( sys.argv[3] == 'recursive-div' ) :
     RecursiveDivision.generate_maze(GRID_W, GRID_H)
+'''
+
+m = maze.Maze(30,30)
+m.draw_dfs_algorithm()
+#Dfs.generate_maze(5, 5)
