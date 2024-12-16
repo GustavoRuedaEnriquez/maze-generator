@@ -155,7 +155,7 @@ Function that executes the whole DFS algorithm, this function will modify the
 matrix and also draw the maze.
 """
 
-def draw_dfs_algorithm(window, matrix, width, height):
+def execute_dfs_algorithm(window, matrix, width, height):
   # Draw our starting point and append it to the cells stack and visited
   # cells array
   Draw.draw_maze_cell(window, matrix, (START_X,START_Y), Draw.COLOR_GREEN)
@@ -213,5 +213,5 @@ Entry point of the algorithm, this is the function that maze.py calls
 
 def generate_maze(window, maze_matrix, width, height) :
   Draw.draw_maze_matrix(window, maze_matrix)
-  draw_dfs_algorithm(window, maze_matrix, width, height)
+  execute_dfs_algorithm(window, maze_matrix, width, height)
   
