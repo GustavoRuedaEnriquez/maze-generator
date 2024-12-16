@@ -158,7 +158,6 @@ def execute_prim_algorithm(window, matrix, width, height):
   # Search for the possible frontiers around our starting slot.
   available_frontiers = get_frontiers(window, matrix, start)
   frontiers.update(available_frontiers)
-  print("Frontiers 1: ", frontiers)
 
   while(len(frontiers) > 0) :
     # Obtain a random frontier slot.
