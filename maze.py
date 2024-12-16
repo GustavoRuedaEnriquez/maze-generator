@@ -1,6 +1,8 @@
 import utils.draw as Draw
 import algorithm_depth_first_search as Dfs
+import algorithm_prim as Prim
 import time
+
 class Maze:
   def __init__(self, _width, _height):
     self.width = _width
@@ -17,16 +19,21 @@ class Maze:
     return string
 
   def draw_matrix(self):
-    window, clock = Draw.init_screen('Maze')
+    window, clock = Draw.init_screen("Maze")
     Draw.draw_maze_matrix(window, self.matrix)
     Draw.run_game_loop(clock)
 
   def draw_dfs_algorithm(self):
-    window, clock = Draw.init_screen('Maze generated with DFS algorithm')
+    window, clock = Draw.init_screen("Maze generated with DFS algorithm")
     Dfs.generate_maze(window, self.matrix, self.width, self.height)
     print(self)
     Draw.run_game_loop(clock)
 
+  def draw_prim_algorithm(self):
+    window, clock = Draw.init_screen("Maze generated with Prim's algorithm")
+    Prim.generate_maze(window, self.matrix, self.width, self.height)
+    print(self)
+    Draw.run_game_loop(clock)
 
   def create_blank_maze(self, _width, _height):
     matrix_cols = (2 * _width) + 1
