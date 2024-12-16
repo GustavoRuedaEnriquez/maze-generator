@@ -27,7 +27,7 @@ parser = argparse.ArgumentParser(
 maze_w = 5
 maze_h = 5
 maze_algorithm = "dfs"
-algorithms = ['dfs', 'prim']#, 'kruskal', 'recursive-div']
+algorithms = ['dfs', 'prim', 'kruskal']#, 'recursive-div']
 
 # Messages displayed with --help option
 size_help  = "total size of the grid, enter it using the following structure:"\
@@ -81,8 +81,5 @@ if( maze_algorithm == 'dfs' ) :
     m.draw_dfs_algorithm()
 elif( maze_algorithm == 'prim' ) :
     m.draw_prim_algorithm()
-
-
-
-m.draw_dfs_algorithm()
-#m.draw_prim_algorithm()'''
+elif( maze_algorithm == 'kruskal' ) :
+    m.draw_kruskal_algorithm()

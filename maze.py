@@ -1,6 +1,7 @@
 import utils.draw as Draw
 import algorithm_depth_first_search as Dfs
 import algorithm_prim as Prim
+import algorithm_kruskal as Kruskal
 import time
 
 class Maze:
@@ -47,7 +48,12 @@ class Maze:
     Prim.generate_maze(window, self.matrix, self.width, self.height)
     self.write_maze_into_file("maze_prim")
     Draw.run_game_loop(clock)
-    print(self)
+
+  def draw_kruskal_algorithm(self):
+    window, clock = Draw.init_screen("Maze generated with Kruskal's algorithm")
+    Kruskal.generate_maze(window, self.matrix, self.width, self.height)
+    self.write_maze_into_file("maze_kruskal")
+    Draw.run_game_loop(clock)
     
   def create_blank_maze(self, _width, _height):
     matrix_cols = (2 * _width) + 1
