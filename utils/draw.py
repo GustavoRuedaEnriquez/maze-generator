@@ -77,6 +77,35 @@ def draw_start_end_cells(Window, matrix, width, height):
   draw_maze_cell(Window, matrix, end, COLOR_BLUE)
   pygame.display.update()
 
+def draw_maze_matrix(Window, maze_matrix):
+  y = 2 * CELL_W
+  for i in range(0, len(maze_matrix)):
+    x = 2 * CELL_W
+    for j in range(0, len(maze_matrix[i])):
+      cell = pygame.Rect([x, y], [CELL_W, CELL_W])
+      if maze_matrix[i][j] is WALL_CONST:
+        pygame.draw.rect(Window, COLOR_GRAY, cell)
+      elif maze_matrix[i][j] is SLOT_CONST:
+        pygame.draw.rect(Window, COLOR_WHITE, cell)
+      x += CELL_W
+    y += CELL_W
+  pygame.display.update()
+
+def draw_maze_cell(Window, maze_matrix, coords, color):
+  coord_x = coords[0]
+  coord_y = coords[1]
+
+  y = 2 * CELL_W
+  for i in range(0, len(maze_matrix)):
+    x = 2 * CELL_W
+    for j in range(0, len(maze_matrix[i])):
+      cell = pygame.Rect([x, y], [CELL_W, CELL_W])
+      if i == coord_y and j == coord_x:
+        pygame.draw.rect(Window, color, cell)
+      x += CELL_W
+    y += CELL_W
+  pygame.display.update()
+
 def draw_connecting_cells(Window, maze_matrix, cell_a, cell_b, color):
   # X, Y components of both slots to merge
   a_x = cell_a[0]
@@ -118,37 +147,6 @@ def draw_connecting_cells(Window, maze_matrix, cell_a, cell_b, color):
     cur_y += dir_y
 
   pygame.display.update()
-
-
-def draw_maze_cell(Window, maze_matrix, coords, color):
-  coord_x = coords[0]
-  coord_y = coords[1]
-
-  y = 2 * CELL_W
-  for i in range(0, len(maze_matrix)):
-    x = 2 * CELL_W
-    for j in range(0, len(maze_matrix[i])):
-      cell = pygame.Rect([x, y], [CELL_W, CELL_W])
-      if i == coord_y and j == coord_x:
-        pygame.draw.rect(Window, color, cell)
-      x += CELL_W
-    y += CELL_W
-  pygame.display.update()
-
-def draw_maze_matrix(Window, maze_matrix):
-  y = 2 * CELL_W
-  for i in range(0, len(maze_matrix)):
-    x = 2 * CELL_W
-    for j in range(0, len(maze_matrix[i])):
-      cell = pygame.Rect([x, y], [CELL_W, CELL_W])
-      if maze_matrix[i][j] is WALL_CONST:
-        pygame.draw.rect(Window, COLOR_GRAY, cell)
-      elif maze_matrix[i][j] is SLOT_CONST:
-        pygame.draw.rect(Window, COLOR_WHITE, cell)
-      x += CELL_W
-    y += CELL_W
-  pygame.display.update()
-
 
 def draw_grid (Window, Rows, Columns) :
   grid = []
