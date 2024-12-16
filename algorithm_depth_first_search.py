@@ -5,8 +5,8 @@
 -------------------------------
 Author: Gustavo Adolfo Rueda Enríquez
 Python 3.8
-
 """
+
 import random
 import utils.draw as Draw
 
@@ -18,6 +18,12 @@ START_Y = 1
 # CELLS ARRAY
 stack   = []
 visited = []
+
+"""
+Checks if a certain cell from the maze matrix has neighbors on at least 1 out of
+4 possible directions (above, left, below, right). Returns True if cell has at
+least a neighbor directly adjacent to it.
+"""
 
 def has_neighbors(matrix, position):
   x = position[0]
@@ -49,6 +55,17 @@ def has_neighbors(matrix, position):
     right = ((x+odu, y) not in visited) and (matrix[y][x+odu] == Draw.SLOT_CONST)
 
   return top or left or bottom or right
+
+"""
+Searchs for all neighbors a certain cell from the maze matrix could have, a cell
+could have at most 1 neighbor on 4 possible directions (above, left, below,
+right). Returns a dictionary array with all existing neighbors. Dictionaries
+have the following structure:
+{
+  'dir':'left',
+  'coords' : (X, Y)
+}
+"""
 
 def get_neighbors(matrix, position):
   x = position[0]
@@ -84,6 +101,11 @@ def get_neighbors(matrix, position):
       available_neighbors.append({'dir':'right', 'coords': coords})
   return available_neighbors
 
+"""
+Changes the maze matrix to reflect a connection between 2 slots. Also the one in
+charge to draw this new connection between cells
+"""
+
 def connect_slots(window, matrix, slot_a, slot_b):
   # X, Y components of both slots to merge
   a_x = slot_a[0]
@@ -110,21 +132,29 @@ def connect_slots(window, matrix, slot_a, slot_b):
   else:
     dir_y = -1
 
+  matrix[a_y][a_x] = Draw.SLOT_CONST
   cur_x = a_x + dir_x
   cur_y = a_y + dir_y
 
   # Set all the cells between slot A and slot B (including slot B) as free slots
-  for i in range(0, abs(dx)):
-    matrix[cur_y][cur_x] = Draw.SLOT_CONST
-    cur_x += dir_x
+  if (dx != 0):
+    for i in range(0, abs(dx)):
+      matrix[cur_y][cur_x] = Draw.SLOT_CONST
+      cur_x += dir_x
 
-  for i in range(0, abs(dy)):
-    matrix[cur_y][cur_x] = Draw.SLOT_CONST
-    cur_y += dir_y
+  if (dy != 0):
+    for i in range(0, abs(dy)):
+      matrix[cur_y][cur_x] = Draw.SLOT_CONST
+      cur_y += dir_y
 
   # Draw the change we have just made on the maze matrix
   Draw.draw_connecting_cells(window, matrix, slot_a, slot_b, Draw.COLOR_VIOLET)
-  
+
+"""
+Function that executes the whole DFS algorithm, this function will modify the
+matrix and also draw the maze.
+"""
+
 def draw_dfs_algorithm(window, matrix, width, height):
   # Draw our starting point and append it to the cells stack and visited
   # cells array
@@ -177,9 +207,11 @@ def draw_dfs_algorithm(window, matrix, width, height):
           Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (coord_x, old_y), Draw.COLOR_CYAN)            
   Draw.draw_start_end_cells(window, matrix, width, height)
 
-def generate_maze(window, clock, maze_matrix, width, height) :
-  window, clock = Draw.init_screen('Maze generated with DFS algorithm')
+"""
+Entry point of the algorithm, this is the function that maze.py calls
+"""
+
+def generate_maze(window, maze_matrix, width, height) :
   Draw.draw_maze_matrix(window, maze_matrix)
   draw_dfs_algorithm(window, maze_matrix, width, height)
-  Draw.run_game_loop(clock)
   
