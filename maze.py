@@ -1,8 +1,8 @@
 import utils.draw as Draw
-import algorithm_depth_first_search as Dfs
-import algorithm_prim as Prim
-import algorithm_kruskal as Kruskal
-import algorithm_recursive_division as Recursive_Div
+import algorithms.algorithm_depth_first_search as Dfs
+import algorithms.algorithm_prim as Prim
+import algorithms.algorithm_kruskal as Kruskal
+import algorithms.algorithm_recursive_division as Recursive_Div
 
 class Maze:
   def __init__(self, _width, _height):
