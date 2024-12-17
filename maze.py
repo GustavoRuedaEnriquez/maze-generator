@@ -3,7 +3,6 @@ import algorithm_depth_first_search as Dfs
 import algorithm_prim as Prim
 import algorithm_kruskal as Kruskal
 import algorithm_recursive_division as Recursive_Div
-import time
 
 class Maze:
   def __init__(self, _width, _height):
@@ -38,30 +37,34 @@ class Maze:
     Draw.draw_maze_matrix(window, self.matrix)
     Draw.run_game_loop(clock)
 
-  def draw_dfs_algorithm(self):
+  def exec_dfs_algorithm(self, create_file, filepath):
     window, clock = Draw.init_screen("Maze generated with DFS algorithm")
     Dfs.generate_maze(window, self.matrix, self.width, self.height)
-    self.write_maze_into_file("maze_dfs")
+    if create_file:
+      self.write_maze_into_file(filepath)
     Draw.run_game_loop(clock)
 
-  def draw_prim_algorithm(self):
+  def exec_prim_algorithm(self, create_file, filepath):
     window, clock = Draw.init_screen("Maze generated with Prim's algorithm")
     Prim.generate_maze(window, self.matrix, self.width, self.height)
-    self.write_maze_into_file("maze_prim")
+    if create_file:
+      self.write_maze_into_file(filepath)
     Draw.run_game_loop(clock)
 
-  def draw_kruskal_algorithm(self):
+  def exec_kruskal_algorithm(self, create_file, filepath):
     window, clock = Draw.init_screen("Maze generated with Kruskal's algorithm")
     Kruskal.generate_maze(window, self.matrix, self.width, self.height)
-    self.write_maze_into_file("maze_kruskal")
+    if create_file:
+      self.write_maze_into_file(filepath)
     Draw.run_game_loop(clock)
 
-  def draw_recursive_division_algorithm(self):
+  def exec_recursive_division_algorithm(self, create_file, filepath):
     self.matrix = self.create_empty_box(self.width, self.height)
     window, clock = Draw.init_screen("Maze generated with Recursive Division "\
                                      "algorithm")
     Recursive_Div.generate_maze(window, self.matrix, self.width, self.height)
-    self.write_maze_into_file("maze_recursive_div")
+    if create_file:
+      self.write_maze_into_file(filepath)
     Draw.run_game_loop(clock)
   
   def create_empty_box(self, _width, _height):

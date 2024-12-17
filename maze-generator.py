@@ -27,6 +27,9 @@ parser = argparse.ArgumentParser(
 maze_w = 5
 maze_h = 5
 maze_algorithm = "dfs"
+create_file = False
+filepath = ""
+
 algorithms = ['dfs', 'prim', 'kruskal', 'recursive-div']
 
 # Messages displayed with --help option
@@ -73,15 +76,19 @@ if (args.algorithm != None):
   else:
     maze_algorithm = args.algorithm
 
+# Check if a file path is passed
+if (args.filepath != None):
+  create_file = True
+  filepath = args.filepath
 
 # Finally, build the maze
 m = maze.Maze(maze_w, maze_h)
 
 if (maze_algorithm == 'dfs'):
-  m.draw_dfs_algorithm()
+  m.exec_dfs_algorithm(create_file, filepath)
 elif (maze_algorithm == 'prim'):
-  m.draw_prim_algorithm()
+  m.exec_prim_algorithm(create_file, filepath)
 elif (maze_algorithm == 'kruskal'):
-  m.draw_kruskal_algorithm()
+  m.exec_kruskal_algorithm(create_file, filepath)
 elif (maze_algorithm == 'recursive-div'):
-  m.draw_recursive_division_algorithm()
+  m.exec_recursive_division_algorithm(create_file, filepath)
