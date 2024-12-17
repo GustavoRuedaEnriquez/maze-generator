@@ -2,6 +2,7 @@ import utils.draw as Draw
 import algorithm_depth_first_search as Dfs
 import algorithm_prim as Prim
 import algorithm_kruskal as Kruskal
+import algorithm_recursive_division as Recursive_Div
 import time
 
 class Maze:
@@ -54,7 +55,53 @@ class Maze:
     Kruskal.generate_maze(window, self.matrix, self.width, self.height)
     self.write_maze_into_file("maze_kruskal")
     Draw.run_game_loop(clock)
+
+  def draw_recursive_division_algorithm(self):
+    self.matrix = self.create_empty_box(self.width, self.height)
+    window, clock = Draw.init_screen("Maze generated with Recursive Division "\
+                                     "algorithm")
+    Recursive_Div.generate_maze(window, self.matrix, self.width, self.height)
+    self.write_maze_into_file("maze_recursive_div")
+    Draw.run_game_loop(clock)
+  
+  def create_empty_box(self, _width, _height):
+    matrix_cols = (2 * _width) + 1
+    slot_value = 0
+    maze_matrix = list()
     
+    # First row of the matrix must be all walls (0), since it is top's border
+    # limit
+    maze_wall_row = list()
+    for i in range(0, matrix_cols):
+      maze_wall_row.append(0)
+    maze_matrix.append(maze_wall_row)
+
+    # Since this matrix is only used for recursive division, there are no inner
+    # walls here, so the only walls would be located on the first and last cell
+    for i in range(0, _height):
+      maze_row = list()
+      for j in range(0, matrix_cols):
+        slot_value = 0 if (j == 0 or j==matrix_cols-1) else 1
+        maze_row.append(slot_value)
+      maze_matrix.append(maze_row)
+
+    for i in range(0, _height):
+      maze_row = list()
+      for j in range(0, matrix_cols):
+        slot_value = 0 if (j == 0 or j==matrix_cols-1) else 1
+        maze_row.append(slot_value)
+      maze_matrix.append(maze_row)
+
+    # Last row of the matrix must be all walls (0), since it is bottom's border
+    # limit
+    maze_wall_row = list()
+    for i in range(0, matrix_cols):
+      maze_wall_row.append(0)
+    maze_matrix.pop()
+    maze_matrix.append(maze_wall_row)
+
+    return maze_matrix
+
   def create_blank_maze(self, _width, _height):
     matrix_cols = (2 * _width) + 1
     slot_value = 0
