@@ -7,9 +7,15 @@ Author: Gustavo Adolfo Rueda Enríquez
 Python 3.8
 
 """
-import time
+
 import random
 import utils.draw as Draw
+
+'''
+Function in charge of doing a cut vertically or horizontally across a section of
+the maze. This function will modify the maze matrix and also draw the cut on
+screen
+'''
 
 def cut_maze(window, matrix, direction, start, end, coord_x, coord_y):
   start_x = start[0]
@@ -30,6 +36,12 @@ def cut_maze(window, matrix, direction, start, end, coord_x, coord_y):
       matrix[coord_y][i] = Draw.WALL_CONST
     # Reflect the maze cut by drawing the wall
     Draw.cut_maze(window, start, end, coord_y, direction)
+
+'''
+Function that creates a gap on the wall done by cut_maze function, this gap will
+allow to mantain connectability on the graph. This function will modify the maze
+matrix and also draw the gap on screen
+'''
 
 def create_gap(window, matrix, direction, start, end, col_x, row_y):
   start_x = start[0]
@@ -61,6 +73,11 @@ def create_gap(window, matrix, direction, start, end, col_x, row_y):
     
   # Draw the new usable slot
   Draw.draw_maze_cell(window, matrix, (x_coord, y_coord), Draw.COLOR_CYAN)
+
+'''
+Recursive function that will cut the maze, create a gap and continue again until
+no more cuts can be done on the maze.
+'''
 
 def bisect_maze(window, matrix, start, end, width, height):
   start_x = start[0]
@@ -112,9 +129,17 @@ def bisect_maze(window, matrix, start, end, width, height):
     bisect_maze(window, matrix, (start_x, start_y), (cut_col_x, end_y), width, height)
     bisect_maze(window, matrix, (cut_col_x+1,start_y), (end_x, end_y), width, height)
 
+"""
+Function that executes the whole recursive division algorithm.
+"""
+
 def exec_recursive_division_algorithm(window, matrix, width, height) :
   bisect_maze(window, matrix, (1, 1), (width * 2, height * 2), width, height)
   Draw.draw_start_end_cells(window, matrix, width, height)
+
+"""
+Entry point of the algorithm, this is the function that maze.py calls
+"""
 
 def generate_maze(window, maze_matrix, width, height) :
   Draw.draw_outer_perimeter (window, width, height)
