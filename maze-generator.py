@@ -29,6 +29,8 @@ maze_h = 5
 maze_algorithm = "dfs"
 create_file = False
 filepath = ""
+filesource = ""
+operation = "create-maze"
 
 algorithms = ['dfs', 'prim', 'kruskal', 'recursive-div']
 
@@ -42,9 +44,8 @@ write_help = "file name of where the resulting maze will be written"
 file_help = "file path of .maze file that is wanted to be drawn"
 
 
-parser.add_argument("-s", "--size", dest="size", help=size_help, default="5x5")
-parser.add_argument("-a", "--algorithm", dest="algorithm", default="dfs", \
-                    help=algorithm_help)
+parser.add_argument("-s", "--size", dest="size", help=size_help)
+parser.add_argument("-a", "--algorithm", dest="algorithm", help=algorithm_help)
 parser.add_argument("-wr", "--write", dest="filepath", help=write_help)
 parser.add_argument("-f", "--file", dest="filesource", help=file_help)
 args = parser.parse_args()
@@ -54,41 +55,49 @@ if(args.size != None and args.filesource != None):
   print("Conflicting operations. Nothing done.")
   exit()
 
-# OPTION 1: Create a custom maze.
+if (args.filesource != None):
+  operation = "read-maze"
+  filesource = args.filesource
 
-# Check size input
-if(args.size != None):
-  size_array = args.size.split('x')
-  maze_w = int(size_array[0])
-  maze_h = int(size_array[1])
-  if (maze_w < CELLS_LOW_LIMIT or maze_w > CELLS_UPPER_LIMIT):
-    print ("Width out of range")
-    exit()
-  if (maze_h < CELLS_LOW_LIMIT or maze_h > CELLS_UPPER_LIMIT):
-    print ("Height out of range")
-    exit()
+if (operation == "create-maze"):
+  # Check size input
+  if(args.size != None):
+    size_array = args.size.split('x')
+    maze_w = int(size_array[0])
+    maze_h = int(size_array[1])
+    if (maze_w < CELLS_LOW_LIMIT or maze_w > CELLS_UPPER_LIMIT):
+      print ("Width out of range")
+      exit()
+    if (maze_h < CELLS_LOW_LIMIT or maze_h > CELLS_UPPER_LIMIT):
+      print ("Height out of range")
+      exit()
 
-# Check algorithm input
-if (args.algorithm != None):
-  if (args.algorithm not in algorithms):
-    print("Invalid algorithm")
-    exit()
-  else:
-    maze_algorithm = args.algorithm
+  # Check algorithm input
+  if (args.algorithm != None):
+    if (args.algorithm not in algorithms):
+      print("Invalid algorithm")
+      exit()
+    else:
+      maze_algorithm = args.algorithm
 
-# Check if a file path is passed
-if (args.filepath != None):
-  create_file = True
-  filepath = args.filepath
+  # Check if a file path is passed
+  if (args.filepath != None):
+    create_file = True
+    filepath = args.filepath
 
-# Finally, build the maze
-m = maze.Maze(maze_w, maze_h)
+  # Finally, build the maze
+  m = maze.Maze(maze_w, maze_h)
 
-if (maze_algorithm == 'dfs'):
-  m.exec_dfs_algorithm(create_file, filepath)
-elif (maze_algorithm == 'prim'):
-  m.exec_prim_algorithm(create_file, filepath)
-elif (maze_algorithm == 'kruskal'):
-  m.exec_kruskal_algorithm(create_file, filepath)
-elif (maze_algorithm == 'recursive-div'):
-  m.exec_recursive_division_algorithm(create_file, filepath)
+  if (maze_algorithm == 'dfs'):
+    m.exec_dfs_algorithm(create_file, filepath)
+  elif (maze_algorithm == 'prim'):
+    m.exec_prim_algorithm(create_file, filepath)
+  elif (maze_algorithm == 'kruskal'):
+    m.exec_kruskal_algorithm(create_file, filepath)
+  elif (maze_algorithm == 'recursive-div'):
+    m.exec_recursive_division_algorithm(create_file, filepath)
+
+elif (operation == "read-maze"):
+  m = maze.Maze(CELLS_LOW_LIMIT, CELLS_LOW_LIMIT)
+  m.read_maze_file(filesource)
+  m.draw_maze()

@@ -204,5 +204,5 @@ def execute_kruskal_algorithm(window, matrix, width, height) :
   Draw.draw_start_end_cells(window, matrix, width, height)
 
 def generate_maze(window, maze_matrix, width, height) :
-  Draw.draw_maze_matrix(window, maze_matrix)
+  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_WHITE)
   execute_kruskal_algorithm(window, maze_matrix, width, height)

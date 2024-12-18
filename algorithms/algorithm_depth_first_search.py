@@ -212,6 +212,6 @@ Entry point of the algorithm, this is the function that maze.py calls
 """
 
 def generate_maze(window, maze_matrix, width, height) :
-  Draw.draw_maze_matrix(window, maze_matrix)
+  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_WHITE)
   execute_dfs_algorithm(window, maze_matrix, width, height)
   

@@ -69,7 +69,7 @@ def draw_start_end_cells(Window, matrix, width, height):
   draw_maze_cell(Window, matrix, end, COLOR_BLUE)
   pygame.display.update()
 
-def draw_maze_matrix(Window, maze_matrix):
+def draw_maze_matrix(Window, maze_matrix, slot_color):
   y = Y_0
   for i in range(0, len(maze_matrix)):
     x = X_0
@@ -78,7 +78,7 @@ def draw_maze_matrix(Window, maze_matrix):
       if maze_matrix[i][j] is WALL_CONST:
         pygame.draw.rect(Window, COLOR_GRAY, cell)
       elif maze_matrix[i][j] is SLOT_CONST:
-        pygame.draw.rect(Window, COLOR_WHITE, cell)
+        pygame.draw.rect(Window, slot_color, cell)
       x += CELL_W
     y += CELL_W
   pygame.display.update()

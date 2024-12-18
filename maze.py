@@ -32,9 +32,63 @@ class Maze:
     file.write(str(self))
     file.close()
 
-  def draw_matrix(self):
+  def process_maze_file(self, content):
+    content_array = content.split('\n')
+
+    # Remove EOF char (empty string) left
+    content_array.remove('')
+
+    # Retrieve width and height
+    width_str = content_array[0]
+    height_str = content_array[1]
+
+    # Width is saved with the format:
+    # W [WIDTH]
+    width = int(width_str.split(" ")[1])
+
+    # Height is saved with the format:
+    # H [HEIGHT]
+    height = int(height_str.split(" ")[1])
+    
+    # Set maze's dimensions
+    self.width = width
+    self.height = height
+
+    matrix_str = content_array[2:]
+    # First, split each row and remove any blank character
+    for i in range(0, len(matrix_str)):
+      matrix_str[i] = matrix_str[i].split(' ')
+      matrix_str[i].remove('')
+
+    # Now convert string matrix to integer matrix
+    matrix = list()
+    for i in range(0, len(matrix_str)):
+      matrix_row = list()
+      for j in range(0, len(matrix_str[i])):
+        matrix_row.append(int(matrix_str[i][j]))
+      matrix.append(matrix_row)
+    
+    self.matrix = matrix
+
+  def read_maze_file(self, filename):
+    print(filename)
+    if (filename.endswith(".maze") == False):
+      print("Invalid file extension")
+      exit()
+
+    file = open(filename, "rt")
+    
+    # Retrieve file's content
+    content = file.read()
+    file.close()
+
+    # Process content
+    self.process_maze_file(content)
+
+  def draw_maze(self):
     window, clock = Draw.init_screen("Maze")
-    Draw.draw_maze_matrix(window, self.matrix)
+    Draw.draw_maze_matrix(window, self.matrix, Draw.COLOR_CYAN)
+    Draw.draw_start_end_cells(window, self.matrix, self.width, self.height)
     Draw.run_game_loop(clock)
 
   def exec_dfs_algorithm(self, create_file, filepath):
