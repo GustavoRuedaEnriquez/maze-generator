@@ -108,7 +108,7 @@ def obtain_disjoint_neighbor(matrix, sets, position):
       candidates.append('bottom')
 
   # Check cell from right
-  if (x + odu < len(matrix)):
+  if (x + odu < len(matrix[y])):
     if (on_same_set((x,y), (x+odu,y), sets) == False):
       candidates.append('right')
 
