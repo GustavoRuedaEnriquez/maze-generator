@@ -47,7 +47,7 @@ file_help = "file path of .maze file that is wanted to be drawn"
 parser.add_argument("-s", "--size", dest="size", help=size_help)
 parser.add_argument("-a", "--algorithm", dest="algorithm", help=algorithm_help)
 parser.add_argument("-wr", "--write", dest="filepath", help=write_help)
-parser.add_argument("-f", "--file", dest="filesource", help=file_help)
+parser.add_argument("-r", "--read", dest="filesource", help=file_help)
 args = parser.parse_args()
 
 # Make sure we are not using arguments that conflict each other
