@@ -36,6 +36,10 @@ Where:
 > python maze-generator.py --size 15x21 --algorithm dfs
 ```
 
+<div align='center'>
+<img src="./gifs/usage.gif" alt="Demo"/>
+</div>
+
 If you want to save your maze as a text file, you can do it using the `--write`
 argument.
 
@@ -44,7 +48,3 @@ argument.
 > python maze-generator.py --size 30x30 --algorithm prim --write custom_maze
 ```
 Arguments have a short short version too, use to `--help` or `-h` argument to see all the details.
-
-<div align='center'>
-<img src="./gifs/usage.gif" alt="Demo"/>
-</div>
