@@ -32,7 +32,7 @@ filepath = ""
 filesource = ""
 operation = "create-maze"
 
-algorithms = ['dfs', 'prim', 'kruskal', 'recursive-div']
+algorithms = ["dfs", "prim", "kruskal", "recursive-div", "eller"]
 
 # Messages displayed with --help option
 size_help  = "total size of the grid, enter it using the following structure:"\
@@ -96,6 +96,8 @@ if (operation == "create-maze"):
     m.exec_kruskal_algorithm(create_file, filepath)
   elif (maze_algorithm == 'recursive-div'):
     m.exec_recursive_division_algorithm(create_file, filepath)
+  elif (maze_algorithm == 'eller'):
+    m.exec_eller_algorithm(create_file, filepath)
 
 elif (operation == "read-maze"):
   m = maze.Maze(CELLS_LOW_LIMIT, CELLS_LOW_LIMIT)

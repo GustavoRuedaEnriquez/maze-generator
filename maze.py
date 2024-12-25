@@ -3,6 +3,7 @@ import algorithms.algorithm_depth_first_search as Dfs
 import algorithms.algorithm_prim as Prim
 import algorithms.algorithm_kruskal as Kruskal
 import algorithms.algorithm_recursive_division as Recursive_Div
+import algorithms.algorithm_eller as Eller
 
 class Maze:
   def __init__(self, _width, _height):
@@ -117,6 +118,13 @@ class Maze:
     window, clock = Draw.init_screen("Maze generated with Recursive Division "\
                                      "algorithm")
     Recursive_Div.generate_maze(window, self.matrix, self.width, self.height)
+    if create_file:
+      self.write_maze_into_file(filepath)
+    Draw.run_game_loop(clock)
+
+  def exec_eller_algorithm(self, create_file, filepath):
+    window, clock = Draw.init_screen("Maze generated with Eller's algorithm")
+    Eller.generate_maze(window, self.matrix, self.width, self.height)
     if create_file:
       self.write_maze_into_file(filepath)
     Draw.run_game_loop(clock)
