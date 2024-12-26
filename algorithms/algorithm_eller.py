@@ -43,7 +43,6 @@ def merge_adjacent_sets(window, matrix, width, height, curr_y):
     # Check if neighbor cell does not belong on same set.
     set_id = find_set_with_cell((curr_x, curr_y))
 
-
     # If we are on the last row, we need to connect all adjacent cells
     if curr_y == 2 * height - 1:
       if (curr_x + odu, curr_y) not in row_sets[set_id]:
@@ -51,6 +50,13 @@ def merge_adjacent_sets(window, matrix, width, height, curr_y):
         merge_sets(set_id, other_set_id)
         start = (curr_x, curr_y)
         end = (curr_x + odu, curr_y)
+
+        # Modify the matrix cell to reflect this connection
+        matrix[curr_y][curr_x] = 1
+        matrix[curr_y][curr_x + 1] = 1
+        matrix[curr_y][curr_x + odu] = 1
+
+        # Draw the cells connection
         Draw.draw_connecting_cells(window, matrix, start, end, Draw.COLOR_CYAN)
       else:
         curr_x += odu
@@ -58,12 +64,19 @@ def merge_adjacent_sets(window, matrix, width, height, curr_y):
     # Can we join these 2 neighbor cells?
     elif (curr_x + odu, curr_y) not in row_sets[set_id]:
       # Are we going to merge the cells (union both sets)?
-      merge_set_factor = random.randint(1,10)
-      if merge_set_factor > 4:
+      merge_set_factor = random.randint(0,1)
+      if merge_set_factor:
         other_set_id = find_set_with_cell((curr_x + odu, curr_y))
         merge_sets(set_id, other_set_id)
         start = (curr_x, curr_y)
         end = (curr_x + odu, curr_y)
+
+        # Modify the matrix cell to reflect this connection
+        matrix[curr_y][curr_x] = 1
+        matrix[curr_y][curr_x + 1] = 1
+        matrix[curr_y][curr_x + odu] = 1
+
+        # Draw the cells connection
         Draw.draw_connecting_cells(window, matrix, start, end, Draw.COLOR_CYAN)
       else:
         curr_x += odu
@@ -79,7 +92,7 @@ def choose_cells_from_below(window, matrix):
     # Set a random number of openings
     num_cells = random.randint(1, len(row_sets[key]))
     chosen_cells = list()
-    # Remove all coordinates  from the cell, since their row has already been
+    # Remove all coordinates from the set, since their row has already been
     # processed.
     while len(row_sets[key]) > 0:
       cell = row_sets[key].pop()
@@ -97,7 +110,14 @@ def choose_cells_from_below(window, matrix):
       y = chosen_cells[i][1]
       row_sets[key].add((x, y + odu))
       non_orphan_cells.append((x, y + odu))
-      Draw.draw_connecting_cells(window, matrix, (x, y), (x,y+odu), Draw.COLOR_CYAN)
+
+      # Modify the matrix cell to reflect this connection
+      matrix[y][x] = 1
+      matrix[y + 1][x] = 1
+      matrix[y + odu][x] = 1
+
+      # Draw the cells connection
+      Draw.draw_connecting_cells(window, matrix,(x,y),(x,y+odu),Draw.COLOR_CYAN)
 
 
 def execute_eller_algorithm(window, matrix, width, height):
