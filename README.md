@@ -8,6 +8,7 @@ Currently, these 4 algorithms are supported:
 * [Kruskal's algorithm](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm).
 * [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
 * [Recursive Division](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method)
+* [Eller's algorithm](http://www.neocomputer.org/projects/eller.html)
 
 Special mention to Jamis Buck, your articles in [The Buckblog](http://weblog.jamisbuck.org/) really helped me to achieve this. Thanks a lot!
 

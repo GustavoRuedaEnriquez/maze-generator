@@ -39,7 +39,7 @@ size_help  = "total size of the grid, enter it using the following structure:"\
               " widthxheight.Valid values are " \
               "[{} - {}]".format(CELLS_LOW_LIMIT, CELLS_UPPER_LIMIT)
 algorithm_help = "desired maze generation algorithm to use. Valid options are "\
-                 "[dfs, prim, kruskal, recursive-div]"
+                 "[dfs, prim, kruskal, recursive-div, eller]"
 write_help = "file name of where the resulting maze will be written"
 file_help = "file path of .maze file that is wanted to be drawn"
 
