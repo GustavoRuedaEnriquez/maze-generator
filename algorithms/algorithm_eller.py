@@ -11,20 +11,37 @@ Python 3.8
 import random
 import utils.draw as Draw
 
-# We will store the sets on dictionaries, one will consider all cells from all
-# rows, another one will focus only on the processed row.
+# We will store the sets of the row on dictionaries.
 row_sets = dict()
+
+# This array will contain all cell that are not orphan, this meaning, cells that
+# belong to a set.
 non_orphan_cells = list()
+
+"""
+Function that merges 2 sets.
+"""
 
 def merge_sets(set_1_id, set_2_id):
   row_sets[set_1_id] = row_sets[set_1_id].union(row_sets[set_2_id])
   del row_sets[set_2_id]  
+
+"""
+Function that helps us find the set id of the set that contains certain cell
+coordinates.
+"""
 
 def find_set_with_cell(cell):
   for key in row_sets.keys():
     if cell in row_sets[key]:
       return key
   return None
+
+"""
+First step of Eller's algorithm, randomly merge adjacent disjoint cells, this
+function will modify the matrix and also draw on the grid to reflect these
+merges/connections
+"""
 
 def merge_adjacent_sets(window, matrix, width, height, curr_y):
   keep_processing = True
@@ -86,6 +103,12 @@ def merge_adjacent_sets(window, matrix, width, height, curr_y):
 
   # TODO: Modify matrix.  
 
+"""
+Second step of Eller's algorithm, from the resulting merged sets from step 1,
+randomly merge cells from below (at least one per set), this function will
+modify the matrix and also draw on the grid to reflect these merges/connections.
+"""
+
 def choose_cells_from_below(window, matrix):
   # For each set, choose random cells from next row
   for key in row_sets.keys():
@@ -119,6 +142,10 @@ def choose_cells_from_below(window, matrix):
       # Draw the cells connection
       Draw.draw_connecting_cells(window, matrix,(x,y),(x,y+odu),Draw.COLOR_CYAN)
 
+"""
+Function that executes the whole Eller's algorithm, this function will modify
+the matrix and also draw the maze.
+"""
 
 def execute_eller_algorithm(window, matrix, width, height):
   set_id = 1
@@ -152,6 +179,9 @@ def execute_eller_algorithm(window, matrix, width, height):
           
   Draw.draw_start_end_cells(window, matrix, width, height)
   
+"""
+Entry point of the algorithm, this is the function that maze.py calls
+"""
 
 def generate_maze(window, maze_matrix, width, height) :
   Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_WHITE)
