@@ -75,7 +75,7 @@ class MazeNode:
 
 def reconstruct_path(window, maze_matrix, origin_node, current_node):
   while current_node in origin_node:
-    Draw.draw_cell(window, maze_matrix, current_node.get_pos(), Draw.COLOR_ORANGE)
+    Draw.draw_cell(window, maze_matrix, current_node.get_pos(), Draw.COLOR_YELLOW)
     current_node = origin_node[current_node]
 
 def execute_a_star_algorithm(window, maze_matrix, graph, start, goal):
@@ -118,17 +118,20 @@ def execute_a_star_algorithm(window, maze_matrix, graph, start, goal):
   
     if current_node is not start:
       current_node.set_state(NODE_STATE_CLOSED)
-      Draw.draw_cell(window, maze_matrix, current_node.get_pos(), Draw.COLOR_RED)
+      Draw.draw_cell(window, maze_matrix, current_node.get_pos(), Draw.COLOR_SALMON)
       
   return
 
-def solve_maze(window, matrix, width, height):
+def solve_maze(window, config):
+  print("ENTRO a solve_maze")
+  matrix = config["maze_matrix"]
+  width = config["width"]
+  height = config["height"]
   maze_nodes_matrix, start, goal = parse_int_matrix(matrix, width, height)
   traversable_nodes = get_traversable_nodes(maze_nodes_matrix)
-  print('start: ' + str(start))
-  print('goal: '+ str(goal))
   execute_a_star_algorithm(window, maze_nodes_matrix, traversable_nodes, start, goal)
   Draw.draw_start_end_cells(window, matrix, width, height)
+  print("salgo de solve_maze")
   return 0
 
 def get_traversable_nodes(matrix):

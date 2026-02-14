@@ -154,7 +154,6 @@ def connect_slots(window, matrix, slot_a, slot_b):
 Function that executes the whole DFS algorithm, this function will modify the
 matrix and also draw the maze.
 """
-
 def execute_dfs_algorithm(window, matrix, width, height):
   # Draw our starting point and append it to the cells stack and visited
   # cells array
@@ -186,7 +185,7 @@ def execute_dfs_algorithm(window, matrix, width, height):
       Draw.draw_maze_cell(window, matrix, (coord_x, coord_y), Draw.COLOR_GREEN)
     else :
       # Mark current cell as part of the maze
-      Draw.draw_maze_cell(window, matrix, (coord_x, coord_y), Draw.COLOR_CYAN)
+      Draw.draw_maze_cell(window, matrix, (coord_x, coord_y), Draw.COLOR_WHITE)
             
       # Re-draw the backtracked path, peeking if the previous element had
       # neighbors, if it does not have any neighbors, mark it as part of the
@@ -196,22 +195,24 @@ def execute_dfs_algorithm(window, matrix, width, height):
         coord_x, coord_y = stack.pop()
         # Re-draw right path
         if(old_x != coord_x):
-          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (old_x, coord_y), Draw.COLOR_CYAN)
+          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (old_x, coord_y), Draw.COLOR_WHITE)
         elif(old_y != coord_y) :
-          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (coord_x, old_y), Draw.COLOR_CYAN)
+          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (coord_x, old_y), Draw.COLOR_WHITE)
       else :
         coord_x, coord_y = stack[-1][0], stack[-1][1]
         if(old_x != coord_x) :
-          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (old_x, coord_y), Draw.COLOR_CYAN)
+          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (old_x, coord_y), Draw.COLOR_WHITE)
         elif(old_y != coord_y) :
-          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (coord_x, old_y), Draw.COLOR_CYAN)            
+          Draw.draw_connecting_cells(window, matrix, (coord_x, coord_y), (coord_x, old_y), Draw.COLOR_WHITE)            
   Draw.draw_start_end_cells(window, matrix, width, height)
 
 """
 Entry point of the algorithm, this is the function that maze.py calls
 """
-
-def generate_maze(window, maze_matrix, width, height) :
-  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_WHITE)
-  execute_dfs_algorithm(window, maze_matrix, width, height)
+def generate_maze(window, maze_config):
+  maze_matrix = maze_config["maze_matrix"]
+  maze_width = maze_config["width"]
+  maze_height = maze_config["height"]
+  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_LIGHT_BLUE)
+  execute_dfs_algorithm(window, maze_matrix, maze_width, maze_height)
   

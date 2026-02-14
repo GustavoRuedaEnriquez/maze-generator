@@ -46,6 +46,9 @@ COLOR_BLUE   = (0, 0, 255)
 COLOR_CYAN   = (0, 183, 235)
 COLOR_VIOLET = (238, 130, 238)
 COLOR_ORANGE = (255, 165, 62)
+COLOR_LIGHT_BLUE = (187, 206,255)
+COLOR_SALMON = (247, 96, 96)
+COLOR_YELLOW = (255, 255, 0)
 
 def init_screen(Title) :
   pygame.init()

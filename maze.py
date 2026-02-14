@@ -7,10 +7,51 @@ import algorithms.generation.algorithm_eller as Eller
 import algorithms.solving.algorithm_a_star as A_Star
 
 class Maze:
-  def __init__(self, _width, _height):
+  def __init__(self, config):
+    if "width" in config:
+      self.width = config["width"]
+    else:
+      self.width = 5
+
+    if "height" in config:
+      self.height =  config["height"]
+    else:
+      5
+
+    if "generation_algorithm" in config :
+      self.generation_algorithm = config["generation_algorithm"]
+    else:
+      self.generation_algorithm = None
+
+    if "path" in config:
+      self.path = config["path"]
+    else:
+      self.path = None
+
+    if "source" in config:
+      self.source = config["source"]
+    else:
+      self.source = None
+
+    if "solving_algorithm" in config:
+      self.solving_algorithm = config["solving_algorithm"]
+    else:
+      self.solving_algorithm =  None
+
+    self.matrix = self.create_blank_maze(self.width, self.height)
+    self.is_blank = True
+    self.window = None
+    self.config = self.get_config()
+
+  """def __init__(self, _width, _height):
     self.width = _width
     self.height = _height
-    self.matrix = self.create_blank_maze(_width, _height)
+    self.generation_algorithm = "dfs"
+    self.filepath = None
+    self.solving_algorithm = None
+    self.matrix = self.create_blank_maze(self.width, self.height)
+    self.is_blank = True
+    self.config = self.get_config()"""
 
   def __str__(self):
     string = ''
@@ -23,6 +64,33 @@ class Maze:
       string += '\n'
     return string
   
+  def get_config(self):
+    config = dict()
+    config["width"] = self.width
+    config["height"] = self.height
+    config["generation_algorithm"] = self.generation_algorithm
+    config["path"] = self.path
+    config["source"] = self.source
+    config["solving_algorithm"] = self.solving_algorithm
+    config["maze_matrix"] = self.matrix
+    return config
+
+  def generate(self):
+      if (self.generation_algorithm == 'dfs'):
+        self.window = self.exec_dfs_algorithm()
+      elif (self.generation_algorithm == 'prim'):
+        self.exec_prim_algorithm(create_file, filepath)
+      elif (self.generation_algorithm == 'kruskal'):
+        self.exec_kruskal_algorithm(create_file, filepath)
+      elif (self.generation_algorithm == 'recursive-div'):
+        self.exec_recursive_division_algorithm(create_file, filepath)
+      elif (self.generation_algorithm == 'eller'):
+        self.exec_eller_algorithm(create_file, filepath)
+
+  def solve(self, window):
+    if (self.solving_algorithm == 'a_star'):
+      A_Star.solve_maze(window, self.config)
+
   def write_maze_into_file(self, filename):
     # Custom file must contain maze's important information:
     # - Width
@@ -94,13 +162,15 @@ class Maze:
     self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
 
-  def exec_dfs_algorithm(self, create_file, filepath):
+  def exec_dfs_algorithm(self):
     window, clock = Draw.init_screen("Maze generated with DFS algorithm")
-    Dfs.generate_maze(window, self.matrix, self.width, self.height)
-    if create_file:
-      self.write_maze_into_file(filepath)
-    self.solve(window,'a*') # GRUEDA
+    Dfs.generate_maze(window, self.config)
+    if self.path is not None:
+      self.write_maze_into_file(self.path)
+    if self.solving_algorithm is not None:
+      self.solve(window)
     Draw.run_game_loop(clock)
+    return window
 
   def exec_prim_algorithm(self, create_file, filepath):
     window, clock = Draw.init_screen("Maze generated with Prim's algorithm")
@@ -135,10 +205,6 @@ class Maze:
       self.write_maze_into_file(filepath)
     self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
-
-  def solve(self, window, algorithm):
-    if (algorithm == 'a*'):
-      A_Star.solve_maze(window, self.matrix, self.width, self.height)
 
   def create_empty_box(self, _width, _height):
     matrix_cols = (2 * _width) + 1
