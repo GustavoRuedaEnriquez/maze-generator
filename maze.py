@@ -1,9 +1,10 @@
 import utils.draw as Draw
-import algorithms.algorithm_depth_first_search as Dfs
-import algorithms.algorithm_prim as Prim
-import algorithms.algorithm_kruskal as Kruskal
-import algorithms.algorithm_recursive_division as Recursive_Div
-import algorithms.algorithm_eller as Eller
+import algorithms.generation.algorithm_depth_first_search as Dfs
+import algorithms.generation.algorithm_prim as Prim
+import algorithms.generation.algorithm_kruskal as Kruskal
+import algorithms.generation.algorithm_recursive_division as Recursive_Div
+import algorithms.generation.algorithm_eller as Eller
+import algorithms.solving.algorithm_a_star as A_Star
 
 class Maze:
   def __init__(self, _width, _height):
@@ -90,6 +91,7 @@ class Maze:
     window, clock = Draw.init_screen("Maze")
     Draw.draw_maze_matrix(window, self.matrix, Draw.COLOR_CYAN)
     Draw.draw_start_end_cells(window, self.matrix, self.width, self.height)
+    self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
 
   def exec_dfs_algorithm(self, create_file, filepath):
@@ -97,6 +99,7 @@ class Maze:
     Dfs.generate_maze(window, self.matrix, self.width, self.height)
     if create_file:
       self.write_maze_into_file(filepath)
+    self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
 
   def exec_prim_algorithm(self, create_file, filepath):
@@ -104,6 +107,7 @@ class Maze:
     Prim.generate_maze(window, self.matrix, self.width, self.height)
     if create_file:
       self.write_maze_into_file(filepath)
+    self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
 
   def exec_kruskal_algorithm(self, create_file, filepath):
@@ -111,6 +115,7 @@ class Maze:
     Kruskal.generate_maze(window, self.matrix, self.width, self.height)
     if create_file:
       self.write_maze_into_file(filepath)
+    self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
 
   def exec_recursive_division_algorithm(self, create_file, filepath):
@@ -120,6 +125,7 @@ class Maze:
     Recursive_Div.generate_maze(window, self.matrix, self.width, self.height)
     if create_file:
       self.write_maze_into_file(filepath)
+    self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
 
   def exec_eller_algorithm(self, create_file, filepath):
@@ -127,8 +133,13 @@ class Maze:
     Eller.generate_maze(window, self.matrix, self.width, self.height)
     if create_file:
       self.write_maze_into_file(filepath)
+    self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
-  
+
+  def solve(self, window, algorithm):
+    if (algorithm == 'a*'):
+      A_Star.solve_maze(window, self.matrix, self.width, self.height)
+
   def create_empty_box(self, _width, _height):
     matrix_cols = (2 * _width) + 1
     slot_value = 0

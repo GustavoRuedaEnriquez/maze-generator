@@ -29,7 +29,7 @@ def has_neighbors(matrix, position):
   x = position[0]
   y = position[1]
 
-  # Since walls also occupies one cell, to check ih a cell has neighbors, we
+  # Since walls also occupies one cell, to check if a cell has neighbors, we
   # have to move "one distance unit" (odu), which is equal to 2 cells
   odu =  2
 
@@ -72,7 +72,7 @@ def get_neighbors(matrix, position):
   y = position[1]
   available_neighbors = []
 
-  # Since walls also occupies one cell, to check ih a cell has neighbors, we
+  # Since walls also occupies one cell, to check if a cell has neighbors, we
   # have to move "one distance unit" (odu), which is equal to 2 cells
   odu =  2
 
