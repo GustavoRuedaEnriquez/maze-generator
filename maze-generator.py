@@ -95,7 +95,7 @@ if (operation == "create-maze"):
   if (args.solve is not None):
     maze_config["solving_algorithm"] = args.solve
 
-  # Finally, build the maze
+  # Finally, generate the maze
   m = maze.Maze(maze_config)
   m.generate()
 

@@ -72,7 +72,7 @@ def create_gap(window, matrix, direction, start, end, col_x, row_y):
   matrix[y_coord][x_coord] = Draw.SLOT_CONST
     
   # Draw the new usable slot
-  Draw.draw_maze_cell(window, matrix, (x_coord, y_coord), Draw.COLOR_CYAN)
+  Draw.draw_maze_cell(window, matrix, (x_coord, y_coord), Draw.COLOR_WHITE)
 
 '''
 Recursive function that will cut the maze, create a gap and continue again until
@@ -141,6 +141,9 @@ def exec_recursive_division_algorithm(window, matrix, width, height) :
 Entry point of the algorithm, this is the function that maze.py calls
 """
 
-def generate_maze(window, maze_matrix, width, height) :
+def generate_maze(window, config) :
+  maze_matrix = config["maze_matrix"]
+  width = config["width"]
+  height = config["height"]
   Draw.draw_outer_perimeter (window, width, height)
   exec_recursive_division_algorithm(window, maze_matrix, width, height)

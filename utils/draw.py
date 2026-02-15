@@ -164,7 +164,7 @@ def draw_outer_perimeter (window, width, height) :
 
   # Fill all space with a solid color
   cell = pygame.Rect([x, y], [(2*width+1) * CELL_W, (2*height+1) *  CELL_W])
-  pygame.draw.rect(window, COLOR_CYAN, cell)
+  pygame.draw.rect(window, COLOR_WHITE, cell)
 
   # Top line margin
   cell = pygame.Rect([x, y], [(2 * width + 1) * CELL_W, CELL_W])

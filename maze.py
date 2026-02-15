@@ -39,19 +39,8 @@ class Maze:
       self.solving_algorithm =  None
 
     self.matrix = self.create_blank_maze(self.width, self.height)
-    self.is_blank = True
     self.window = None
     self.config = self.get_config()
-
-  """def __init__(self, _width, _height):
-    self.width = _width
-    self.height = _height
-    self.generation_algorithm = "dfs"
-    self.filepath = None
-    self.solving_algorithm = None
-    self.matrix = self.create_blank_maze(self.width, self.height)
-    self.is_blank = True
-    self.config = self.get_config()"""
 
   def __str__(self):
     string = ''
@@ -76,18 +65,31 @@ class Maze:
     return config
 
   def generate(self):
-      if (self.generation_algorithm == 'dfs'):
-        self.window = self.exec_dfs_algorithm()
-      elif (self.generation_algorithm == 'prim'):
-        self.exec_prim_algorithm()
-      elif (self.generation_algorithm == 'kruskal'):
-        self.exec_kruskal_algorithm()
-      elif (self.generation_algorithm == 'recursive-div'):
-        self.exec_recursive_division_algorithm(create_file, filepath)
-      elif (self.generation_algorithm == 'eller'):
-        self.exec_eller_algorithm(create_file, filepath)
+    window, clock = Draw.init_screen("Generated Maze")
+
+    if (self.generation_algorithm == 'dfs'):
+      Dfs.generate_maze(window, self.config)
+    elif (self.generation_algorithm == 'prim'):
+      Prim.generate_maze(window, self.config)
+    elif (self.generation_algorithm == 'kruskal'):
+      Kruskal.generate_maze(window, self.config)
+    elif (self.generation_algorithm == 'recursive-div'):
+      self.matrix = self.create_empty_box(self.width, self.height)
+      self.config = self.get_config()
+      Recursive_Div.generate_maze(window, self.config)
+    elif (self.generation_algorithm == 'eller'):
+      Eller.generate_maze(window, self.config)
+
+    if self.path is not None:
+      self.write_maze_into_file(self.path)
+    if self.solving_algorithm is not None:
+      self.solve(window)
+
+    Draw.run_game_loop(clock)
 
   def solve(self, window):
+    # Update config file to reflect changes done during generation/processing
+    self.config = self.get_config()
     if (self.solving_algorithm == 'a_star'):
       A_Star.solve_maze(window, self.config)
 
@@ -162,51 +164,6 @@ class Maze:
     self.solve(window,'a*') # GRUEDA
     Draw.run_game_loop(clock)
 
-  def exec_dfs_algorithm(self):
-    window, clock = Draw.init_screen("Maze generated with DFS algorithm")
-    Dfs.generate_maze(window, self.config)
-    if self.path is not None:
-      self.write_maze_into_file(self.path)
-    if self.solving_algorithm is not None:
-      self.solve(window)
-    Draw.run_game_loop(clock)
-    return window
-
-  def exec_prim_algorithm(self):
-    window, clock = Draw.init_screen("Maze generated with Prim's algorithm")
-    Prim.generate_maze(window, self.config)
-    if self.path is not None:
-      self.write_maze_into_file(self.path)
-    if self.solving_algorithm is not None:
-      self.solve(window)
-    Draw.run_game_loop(clock)
-
-  def exec_kruskal_algorithm(self):
-    window, clock = Draw.init_screen("Maze generated with Kruskal's algorithm")
-    Kruskal.generate_maze(window, self.config)
-    if self.path is not None:
-      self.write_maze_into_file(self.path)
-    if self.solving_algorithm is not None:
-      self.solve(window)
-    Draw.run_game_loop(clock)
-
-  def exec_recursive_division_algorithm(self, create_file, filepath):
-    self.matrix = self.create_empty_box(self.width, self.height)
-    window, clock = Draw.init_screen("Maze generated with Recursive Division "\
-                                     "algorithm")
-    Recursive_Div.generate_maze(window, self.matrix, self.width, self.height)
-    if create_file:
-      self.write_maze_into_file(filepath)
-    self.solve(window,'a*') # GRUEDA
-    Draw.run_game_loop(clock)
-
-  def exec_eller_algorithm(self, create_file, filepath):
-    window, clock = Draw.init_screen("Maze generated with Eller's algorithm")
-    Eller.generate_maze(window, self.matrix, self.width, self.height)
-    if create_file:
-      self.write_maze_into_file(filepath)
-    self.solve(window,'a*') # GRUEDA
-    Draw.run_game_loop(clock)
 
   def create_empty_box(self, _width, _height):
     matrix_cols = (2 * _width) + 1
