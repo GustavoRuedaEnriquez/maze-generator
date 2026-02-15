@@ -163,7 +163,7 @@ def connect_slots(window, matrix, slot_a, slot_b):
       cur_y += dir_y
 
   # Draw the change we have just made on the maze matrix
-  Draw.draw_connecting_cells(window, matrix, slot_a, slot_b, Draw.COLOR_CYAN)
+  Draw.draw_connecting_cells(window, matrix, slot_a, slot_b, Draw.COLOR_WHITE)
 
 """
 Function that executes the whole Prim's algorithm, this function will modify the
@@ -174,7 +174,7 @@ def execute_prim_algorithm(window, matrix, width, height):
   # Choose random slot on the matrix.
   start =  get_random_slot(width, height)
   maze.add(start)
-  Draw.draw_maze_cell(window, matrix, start, Draw.COLOR_CYAN)
+  Draw.draw_maze_cell(window, matrix, start, Draw.COLOR_WHITE)
 
   # Search for the possible frontiers around our starting slot.
   available_frontiers = get_frontiers(window, matrix, start)
@@ -208,6 +208,9 @@ def execute_prim_algorithm(window, matrix, width, height):
 Entry point of the algorithm, this is the function that maze.py calls
 """
 
-def generate_maze(window, maze_matrix, width, height) :
-    Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_WHITE)
+def generate_maze(window, maze_config) :
+    maze_matrix = maze_config["maze_matrix"]
+    width = maze_config["width"]
+    height = maze_config["height"]
+    Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_LIGHT_BLUE)
     execute_prim_algorithm(window, maze_matrix, width, height)

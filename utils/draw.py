@@ -69,8 +69,8 @@ def run_game_loop(Clock) :
 def draw_start_end_cells(Window, matrix, width, height):
   start = (1,1)
   end = ((2 * width - 1), (2 * height - 1))
-  draw_maze_cell(Window, matrix, start, COLOR_BLUE)
-  draw_maze_cell(Window, matrix, end, COLOR_BLUE)
+  draw_maze_cell(Window, matrix, start, COLOR_RED)
+  draw_maze_cell(Window, matrix, end, COLOR_RED)
   pygame.display.update()
 
 def draw_maze_matrix(Window, maze_matrix, slot_color):

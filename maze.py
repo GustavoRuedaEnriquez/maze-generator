@@ -79,7 +79,7 @@ class Maze:
       if (self.generation_algorithm == 'dfs'):
         self.window = self.exec_dfs_algorithm()
       elif (self.generation_algorithm == 'prim'):
-        self.exec_prim_algorithm(create_file, filepath)
+        self.exec_prim_algorithm()
       elif (self.generation_algorithm == 'kruskal'):
         self.exec_kruskal_algorithm(create_file, filepath)
       elif (self.generation_algorithm == 'recursive-div'):
@@ -172,12 +172,13 @@ class Maze:
     Draw.run_game_loop(clock)
     return window
 
-  def exec_prim_algorithm(self, create_file, filepath):
+  def exec_prim_algorithm(self):
     window, clock = Draw.init_screen("Maze generated with Prim's algorithm")
-    Prim.generate_maze(window, self.matrix, self.width, self.height)
-    if create_file:
-      self.write_maze_into_file(filepath)
-    self.solve(window,'a*') # GRUEDA
+    Prim.generate_maze(window, self.config)
+    if self.path is not None:
+      self.write_maze_into_file(self.path)
+    if self.solving_algorithm is not None:
+      self.solve(window)
     Draw.run_game_loop(clock)
 
   def exec_kruskal_algorithm(self, create_file, filepath):
