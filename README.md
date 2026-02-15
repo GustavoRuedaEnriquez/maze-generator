@@ -1,18 +1,49 @@
 # Maze Generator
-Tool that generates mazes from different sizes, starting at 5x5 grid to 40x40 grid, using different algorithms. Coded in Python 🐍.
+Maze Generator is a Command Line Interface (CLI) utility for generating and solving mazes using multiple algorithms — complete with animated visualization.
+Coded in Python 🐍.
 
-Additionally, this tool also allows to save mazes as text files (.maze files), this functionality is useful when trying to recreate a past maze, because the tool also allows to input a .maze file and draw the maze this file represents.
+## Features 🚀
+### Maze Generation
+Generate mazes using 5 different generation algorithms:
+- [First Depth Search](https://en.wikipedia.org/wiki/Depth-first_search).
+- [Kruskal's algorithm](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm).
+- [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
+- [Recursive Division](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method)
+- [Eller's algorithm](http://www.neocomputer.org/projects/eller.html)
 
-Currently, these 4 algorithms are supported:
-* [First Depth Search](https://en.wikipedia.org/wiki/Depth-first_search).
-* [Kruskal's algorithm](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm).
-* [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
-* [Recursive Division](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_division_method)
-* [Eller's algorithm](http://www.neocomputer.org/projects/eller.html)
+Each algorithm:
+- Creates a fully connected maze.
+- Produces unique layouts.
+- Displays a real-time generation animation of how the maze is being generated.
 
-Special mention to Jamis Buck, your articles in [The Buckblog](http://weblog.jamisbuck.org/) really helped me to achieve this. Thanks a lot!
+Special mention to Jamis Buck, his articles in [The Buckblog](http://weblog.jamisbuck.org/) really helped to achieve this. Thanks a lot!
 
-## Running the project
+### Maze Solving
+Visualize how a maze can be solved using different pathfinding strategies:
+- [A* A-Star search](https://en.wikipedia.org/wiki/A*_search_algorithm)
+
+Each solver:
+- Animates the search process
+- Shows visited cells
+- Highlights the final path from start to goal
+
+### Maze Object Representation
+Every generated maze is stored as an object with 3 attributes:
+```
+  "width": <int>,
+  "height": <int>,
+  "matrix": [[0, 1, 1, 0, ...], ...]
+```
+Where:
+* `width` - Maze width
+* `height` - Maze height
+* `matrix` -  2D grid representation
+  * `0` = Wall
+  * `1` = Path
+
+This object can be saved into a text file to be used later.
+
+## Installation 🖥️
 Make sure you have [Python 3.8.6](https://www.python.org/downloads/release/python-386/) or later installed on your computer. After this, download the repository and install [pygame](https://www.pygame.org/news), this library is required in order for the project to work.
 
 ```
@@ -22,30 +53,77 @@ Make sure you have [Python 3.8.6](https://www.python.org/downloads/release/pytho
 ```
 
 ## Usage
-### Creating a custom maze
+### Generate maze
 On project's main directory run the following:
 ```
-> python maze-generator.py --size <width>x<height> --algorithm <algorithm>
+python maze-generator.py --maze-size [WIDTH]x[HEIGHT] --generation-algorithm [GEN-ALGORITHM]
 ```
 Where:
-* width - Number representing total width in cells.
-* height - Number representing total height in cells.
-* algorithm - String representing the desired algorithm to use.
+* `[WIDTH]` - Total width in cells.
+* `[HEIGHT]` - Total height in cells.
+* `[GEN-ALGORITHM]` - Desired maze generation algorithm to use.
 
-*example. Generate a 15x21 maze using depth first search algorithm*
+*Example - Generate a 15x21 maze using depth first search algorithm*
 ```
-> python maze-generator.py --size 15x21 --algorithm dfs
+python maze-generator.py --maze-size 15x21 --generation-algorithm dfs
+```
+### Generate maze and solve it
+On project's main directory run the following:
+```
+python maze-generator.py --maze-size [WIDTH]x[HEIGHT] --generation-algorithm [GEN-ALGORITHM] --solving-algorithm [SOL-ALGORITHM]
+```
+Where:
+* `[WIDTH]` - Total width in cells.
+* `[HEIGHT]` - Total height in cells.
+* `[GEN-ALGORITHM]` - Desired maze generation algorithm to use.
+* `[SOL-ALGORITHM]` - Desired pathfinding algorithm to use.
+
+*Example - Generate a 40x37 maze using Prim's algorithm and solve it using A-Star algorithm*
+```
+python maze-generator.py --maze-size 40x37 --generation-algorithm prim --solving-algorithm a_star
 ```
 
-<div align='center'>
-<img src="./gifs/usage.gif" alt="Demo"/>
-</div>
-
-If you want to save your maze as a text file, you can do it using the `--write`
-argument.
-
-*example Generate a 30x30 maze using prim's algorithm and write the generated maze on `custom_maze.maze`*
+### Generate maze and save it into a text file
+On project's main directory run the following:
 ```
-> python maze-generator.py --size 30x30 --algorithm prim --write custom_maze
+python maze-generator.py --maze-size [WIDTH]x[HEIGHT] --generation-algorithm [GEN-ALGORITHM] --maze-write [WRITE_PATH]
 ```
-Arguments have a short short version too, use to `--help` or `-h` argument to see all the details.
+Where:
+* `[WIDTH]` - Total width in cells.
+* `[HEIGHT]` - Total height in cells.
+* `[GEN-ALGORITHM]` - Desired maze generation algorithm to use.
+* `[WRITE-PATH]` - Desired path where the output text file will be saved.
+
+*Example - Generate a 23x15 maze using Kruskal's algorithm and save it on "./my_maze" text file*
+```
+python maze-generator.py --maze-size 23x15 --generation-algorithm kruskal --maze-write ./my_maze
+```
+**IMPORTANT:** The output file will be saved with the file extension `.maze`
+
+### Load maze text file and display it
+On project's main directory run the following:
+```
+python maze-generator.py --maze-source [SOURCE_PATH]
+```
+Where:
+* `[SOURCE-PATH]` - Desired path where the output text file will be saved.
+
+*Example - Display maze saved on custom_maze.maze*
+```
+python maze-generator.py --maze-source custom_maze.maze
+```
+
+### Load maze text file, display it and solve it
+On project's main directory run the following:
+```
+python maze-generator.py --maze-source [SOURCE_PATH] --solving-algorithm [SOL-ALGORITHM]
+```
+Where:
+* `[SOURCE-PATH]` - Desired path where the output text file will be saved.
+* `[SOL-ALGORITHM]` - Desired pathfinding algorithm to use.
+
+*Example - Display maze saved on custom_maze.maze and solve it using A-Star algorithm*
+```
+python maze-generator.py --maze-source custom_maze.maze --solving-algorithm a_star
+```
+Arguments have a short short version too, use `--help` or `-h` argument to see all the details.
