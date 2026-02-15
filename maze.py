@@ -16,7 +16,9 @@ class Maze:
     if "height" in config:
       self.height =  config["height"]
     else:
-      5
+      self.height = 5
+
+    self.matrix = self.create_blank_maze(self.width, self.height)
 
     if "generation_algorithm" in config :
       self.generation_algorithm = config["generation_algorithm"]
@@ -28,18 +30,17 @@ class Maze:
     else:
       self.path = None
 
-    if "source" in config:
-      self.source = config["source"]
-    else:
-      self.source = None
-
     if "solving_algorithm" in config:
       self.solving_algorithm = config["solving_algorithm"]
     else:
       self.solving_algorithm =  None
 
-    self.matrix = self.create_blank_maze(self.width, self.height)
-    self.window = None
+    if "source" in config:
+      self.source = config["source"]
+      self.read_maze_file()
+    else:
+      self.source = None
+
     self.config = self.get_config()
 
   def __str__(self):
@@ -93,6 +94,14 @@ class Maze:
     if (self.solving_algorithm == 'a_star'):
       A_Star.solve_maze(window, self.config)
 
+  def draw_maze(self):
+    window, clock = Draw.init_screen("Maze")
+    Draw.draw_maze_matrix(window, self.matrix, Draw.COLOR_WHITE)
+    Draw.draw_start_end_cells(window, self.matrix, self.width, self.height)
+    if self.solving_algorithm is not None:
+      self.solve(window)
+    Draw.run_game_loop(clock)
+
   def write_maze_into_file(self, filename):
     # Custom file must contain maze's important information:
     # - Width
@@ -116,16 +125,12 @@ class Maze:
 
     # Width is saved with the format:
     # W [WIDTH]
-    width = int(width_str.split(" ")[1])
+    self.width = int(width_str.split(" ")[1])
 
     # Height is saved with the format:
     # H [HEIGHT]
-    height = int(height_str.split(" ")[1])
+    self.height = int(height_str.split(" ")[1])
     
-    # Set maze's dimensions
-    self.width = width
-    self.height = height
-
     matrix_str = content_array[2:]
     # First, split each row and remove any blank character
     for i in range(0, len(matrix_str)):
@@ -141,14 +146,14 @@ class Maze:
       matrix.append(matrix_row)
     
     self.matrix = matrix
+    self.config = self.get_config()
 
-  def read_maze_file(self, filename):
-    print(filename)
-    if (filename.endswith(".maze") == False):
+  def read_maze_file(self):
+    if (self.source.endswith(".maze") == False):
       print("Invalid file extension")
       exit()
 
-    file = open(filename, "rt")
+    file = open(self.source, "rt")
     
     # Retrieve file's content
     content = file.read()
@@ -156,14 +161,6 @@ class Maze:
 
     # Process content
     self.process_maze_file(content)
-
-  def draw_maze(self):
-    window, clock = Draw.init_screen("Maze")
-    Draw.draw_maze_matrix(window, self.matrix, Draw.COLOR_CYAN)
-    Draw.draw_start_end_cells(window, self.matrix, self.width, self.height)
-    self.solve(window,'a*') # GRUEDA
-    Draw.run_game_loop(clock)
-
 
   def create_empty_box(self, _width, _height):
     matrix_cols = (2 * _width) + 1
@@ -230,5 +227,3 @@ class Maze:
       maze_matrix.append(maze_row)
 
     return maze_matrix
-
-    
