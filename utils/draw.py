@@ -45,6 +45,10 @@ COLOR_GREEN  = (0, 255, 0)
 COLOR_BLUE   = (0, 0, 255)
 COLOR_CYAN   = (0, 183, 235)
 COLOR_VIOLET = (238, 130, 238)
+COLOR_ORANGE = (255, 165, 62)
+COLOR_LIGHT_BLUE = (187, 206,255)
+COLOR_SALMON = (247, 96, 96)
+COLOR_YELLOW = (255, 255, 0)
 
 def init_screen(Title) :
   pygame.init()
@@ -65,8 +69,8 @@ def run_game_loop(Clock) :
 def draw_start_end_cells(Window, matrix, width, height):
   start = (1,1)
   end = ((2 * width - 1), (2 * height - 1))
-  draw_maze_cell(Window, matrix, start, COLOR_BLUE)
-  draw_maze_cell(Window, matrix, end, COLOR_BLUE)
+  draw_maze_cell(Window, matrix, start, COLOR_RED)
+  draw_maze_cell(Window, matrix, end, COLOR_RED)
   pygame.display.update()
 
 def draw_maze_matrix(Window, maze_matrix, slot_color):
@@ -79,6 +83,20 @@ def draw_maze_matrix(Window, maze_matrix, slot_color):
         pygame.draw.rect(Window, COLOR_GRAY, cell)
       elif maze_matrix[i][j] is SLOT_CONST:
         pygame.draw.rect(Window, slot_color, cell)
+      x += CELL_W
+    y += CELL_W
+  pygame.display.update()
+
+def draw_cell(Window, maze_matrix, coords, color):
+  row = coords[0]
+  col = coords[1]
+  y = Y_0
+  for i in range(0, len(maze_matrix)):
+    x = X_0
+    for j in range(0, len(maze_matrix[i])):
+      cell = pygame.Rect([x, y], [CELL_W, CELL_W])
+      if i == row and j == col:
+        pygame.draw.rect(Window, color, cell)
       x += CELL_W
     y += CELL_W
   pygame.display.update()
@@ -146,7 +164,7 @@ def draw_outer_perimeter (window, width, height) :
 
   # Fill all space with a solid color
   cell = pygame.Rect([x, y], [(2*width+1) * CELL_W, (2*height+1) *  CELL_W])
-  pygame.draw.rect(window, COLOR_CYAN, cell)
+  pygame.draw.rect(window, COLOR_WHITE, cell)
 
   # Top line margin
   cell = pygame.Rect([x, y], [(2 * width + 1) * CELL_W, CELL_W])

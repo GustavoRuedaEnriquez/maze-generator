@@ -181,7 +181,7 @@ def connect_slots(window, matrix, slot_a, slot_b):
       cur_y += dir_y
 
   # Draw the change we have just made on the maze matrix
-  Draw.draw_connecting_cells(window, matrix, slot_a, slot_b, Draw.COLOR_CYAN)
+  Draw.draw_connecting_cells(window, matrix, slot_a, slot_b, Draw.COLOR_WHITE)
 
 def execute_kruskal_algorithm(window, matrix, width, height) :
   # Add all the slots to set and edges array.
@@ -203,6 +203,9 @@ def execute_kruskal_algorithm(window, matrix, width, height) :
 
   Draw.draw_start_end_cells(window, matrix, width, height)
 
-def generate_maze(window, maze_matrix, width, height) :
-  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_WHITE)
+def generate_maze(window, config) :
+  maze_matrix = config["maze_matrix"]
+  width = config["width"]
+  height = config["height"]
+  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_LIGHT_BLUE)
   execute_kruskal_algorithm(window, maze_matrix, width, height)

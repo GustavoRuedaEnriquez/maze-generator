@@ -74,7 +74,7 @@ def merge_adjacent_sets(window, matrix, width, height, curr_y):
         matrix[curr_y][curr_x + odu] = 1
 
         # Draw the cells connection
-        Draw.draw_connecting_cells(window, matrix, start, end, Draw.COLOR_CYAN)
+        Draw.draw_connecting_cells(window, matrix, start, end, Draw.COLOR_WHITE)
       else:
         curr_x += odu
 
@@ -94,7 +94,7 @@ def merge_adjacent_sets(window, matrix, width, height, curr_y):
         matrix[curr_y][curr_x + odu] = 1
 
         # Draw the cells connection
-        Draw.draw_connecting_cells(window, matrix, start, end, Draw.COLOR_CYAN)
+        Draw.draw_connecting_cells(window, matrix, start, end, Draw.COLOR_WHITE)
       else:
         curr_x += odu
   
@@ -140,7 +140,7 @@ def choose_cells_from_below(window, matrix):
       matrix[y + odu][x] = 1
 
       # Draw the cells connection
-      Draw.draw_connecting_cells(window, matrix,(x,y),(x,y+odu),Draw.COLOR_CYAN)
+      Draw.draw_connecting_cells(window, matrix,(x,y),(x,y+odu),Draw.COLOR_WHITE)
 
 """
 Function that executes the whole Eller's algorithm, this function will modify
@@ -163,11 +163,9 @@ def execute_eller_algorithm(window, matrix, width, height):
   
   for i in range (0, height):
     merge_adjacent_sets(window, matrix, width, height, current_y)
-    #time.sleep(6)
     # Skip these steps when being on the last row
     if (current_y < 2 * height - 1):
       choose_cells_from_below(window, matrix)
-      #time.sleep(6)
       current_y += 2
       # Add any possible orphan cell to a unique set
       for i in range (1, width + 1):
@@ -183,6 +181,9 @@ def execute_eller_algorithm(window, matrix, width, height):
 Entry point of the algorithm, this is the function that maze.py calls
 """
 
-def generate_maze(window, maze_matrix, width, height) :
-  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_WHITE)
+def generate_maze(window, config) :
+  maze_matrix = config["maze_matrix"]
+  width = config["width"]
+  height = config["height"]
+  Draw.draw_maze_matrix(window, maze_matrix, Draw.COLOR_LIGHT_BLUE)
   execute_eller_algorithm(window, maze_matrix, width, height)
